@@ -1,0 +1,113 @@
+---
+const experience = {
+  title: "Desarrollador Frontend Junior",
+  company: "Drugstore", // Contenido actualizado como solicitaste
+  location: "Remoto",
+  period: "2024 - Hace 4 meses",
+  description:
+    "Desarrollo de interfaces de usuario responsivas para un sistema hecho para una drogueria local. Colaboración en equipo ágil para entregar funcionalidades de alta calidad.",
+  achievements: [
+    "Mejoré el rendimiento de la aplicación en un 30%",
+    "Implementé sistema de componentes reutilizables",
+    "Participé en code reviews y mentoring de nuevos desarrolladores",
+  ],
+};
+---
+
+<section
+  id="experience"
+  class="py-20 bg-muted/30 mx-auto flex flex-col justify-center"
+>
+  <div class="container mx-auto max-w-4xl px-4">
+    <div class="text-center mb-16">
+      <h2 class="text-3xl md:text-4xl font-bold mb-4 text-foreground">
+        Experiencia Profesional
+      </h2>
+      <p class="text-lg text-muted-foreground max-w-2xl mx-auto">
+        Mi trayectoria en el desarrollo web, desde mis inicios como autodidacta
+        hasta mi experiencia profesional actual.
+      </p>
+    </div>
+
+    <div class="space-y-6">
+      <div
+        class="border-border border-2 bg-card hover:shadow-lg transition-shadow rounded-lg overflow-hidden md:max-w-xl mx-auto"
+      >
+        <div class="p-6">
+          <div
+            class="flex flex-col md:flex-row md:items-center md:justify-between gap-2"
+          >
+            <div>
+              <h3 class="text-xl font-semibold text-card-foreground">
+                {experience.title}
+              </h3>
+              <p class="text-primary font-medium">{experience.company}</p>
+            </div>
+            <div
+              class="flex flex-col md:items-end gap-1 text-sm text-muted-foreground"
+            >
+              <div class="flex items-center gap-1.5">
+                <!-- Calendar Icon -->
+                <svg
+                  xmlns="http://www.w3.org/2000/svg"
+                  width="24"
+                  height="24"
+                  viewBox="0 0 24 24"
+                  fill="none"
+                  stroke="currentColor"
+                  stroke-width="2"
+                  stroke-linecap="round"
+                  stroke-linejoin="round"
+                  class="h-3 w-3"
+                  ><path d="M8 2v4"></path><path d="M16 2v4"></path><rect
+                    width="18"
+                    height="18"
+                    x="3"
+                    y="4"
+                    rx="2"></rect><path d="M3 10h18"></path></svg
+                >
+                {experience.period}
+              </div>
+              <div class="flex items-center gap-1.5">
+                <!-- MapPin Icon -->
+                <svg
+                  xmlns="http://www.w3.org/2000/svg"
+                  width="24"
+                  height="24"
+                  viewBox="0 0 24 24"
+                  fill="none"
+                  stroke="currentColor"
+                  stroke-width="2"
+                  stroke-linecap="round"
+                  stroke-linejoin="round"
+                  class="h-3 w-3"
+                  ><path d="M20 10c0 6-8 12-8 12s-8-6-8-12a8 8 0 0 1 16 0Z"
+                  ></path><circle cx="12" cy="10" r="3"></circle></svg
+                >
+                {experience.location}
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="px-6 pb-6 space-y-4">
+          <p class="text-muted-foreground">{experience.description}</p>
+          <div>
+            <h4 class="font-medium mb-2 text-card-foreground">
+              Logros destacados:
+            </h4>
+            <ul class="space-y-1">
+              {
+                experience.achievements.map((achievement) => (
+                  <li class="flex items-start gap-2 text-sm text-muted-foreground">
+                    <span class="text-primary mt-1">•</span>
+                    {achievement}
+                  </li>
+                ))
+              }
+            </ul>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
