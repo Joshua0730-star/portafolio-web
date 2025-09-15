@@ -1,0 +1,144 @@
+---
+import { Image } from "astro:assets";
+import profileImg from "../assets/profile-me.webp";
+import githubIcon from "../assets/icon-github.svg"; // Asegúrate que este sea el nombre correcto del archivo
+import linkedinIcon from "../assets/icon-link.svg"; // Asegúrate que este sea el nombre correcto del archivo
+---
+
+<section id="hero" class="pt-20 pb-16 px-4">
+  <div class="container mx-auto max-w-4xl">
+    <div class="text-center space-y-8">
+      <!-- Profile Image -->
+      <div
+        class="mx-auto w-32 h-32 rounded-full bg-muted flex items-center justify-center overflow-hidden"
+      >
+        <Image
+          src={profileImg}
+          alt="Foto de perfil de Josué"
+          class="w-full h-full object-cover"
+          width="128"
+          height="128"
+        />
+      </div>
+
+      <!-- Main Heading -->
+      <div class="space-y-4 flex flex-col justify-center">
+        <h1
+          class="text-4xl md:text-6xl font-bold text-balance max-w-xl mx-auto text-center"
+        >
+          Desarrollador <span class="text-primary">Full-Stack</span> Junior
+        </h1>
+        <p
+          class="text-xl md:text-2xl text-muted-foreground text-balance max-w-2xl mx-auto"
+        >
+          Creando experiencias web modernas con tecnologías de vanguardia.
+          Especializado en Astro, Node.js y bases de datos.
+        </p>
+      </div>
+
+      <!-- Tech Stack -->
+      <div
+        class="flex flex-wrap justify-center gap-3 text-sm max-w-sm mx-auto md:max-w-max"
+      >
+        {
+          [
+            "Astro",
+            "Figma",
+            "TypeScript",
+            "Node.js",
+            "SQL",
+            "Tailwind CSS",
+          ].map((tech) => (
+            <span class="px-3 py-1 bg-card text-card-foreground rounded-full border border-border">
+              {tech}
+            </span>
+          ))
+        }
+      </div>
+
+      <!-- CTA Buttons -->
+      <div class="flex flex-col sm:flex-row gap-4 justify-center items-center">
+        <a
+          href="#contact"
+          class="bg-primary hover:bg-primary/90 text-primary-foreground inline-flex items-center justify-center whitespace-nowrap rounded-md text-sm font-medium ring-offset-background transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 disabled:pointer-events-none disabled:opacity-50 h-11 px-8"
+        >
+          {/* SVG para el icono de Mail */}
+          <svg
+            class="mr-2 h-4 w-4"
+            xmlns="http://www.w3.org/2000/svg"
+            width="24"
+            height="24"
+            viewBox="0 0 24 24"
+            fill="none"
+            stroke="currentColor"
+            stroke-width="2"
+            stroke-linecap="round"
+            stroke-linejoin="round"
+            ><rect width="20" height="16" x="2" y="4" rx="2"></rect><path
+              d="m22 7-8.97 5.7a1.94 1.94 0 0 1-2.06 0L2 7"></path></svg
+          >
+          Contáctame
+        </a>
+        <a
+          href="/cv-josue.pdf"
+          download
+          class="border border-input bg-background hover:bg-accent/30 hover:text-accent-foreground inline-flex items-center justify-center whitespace-nowrap rounded-md text-sm font-medium ring-offset-background transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 disabled:pointer-events-none disabled:opacity-50 h-11 px-8"
+        >
+          {/* SVG para el icono de Download */}
+          <svg
+            class="mr-2 h-4 w-4"
+            width="24"
+            height="24"
+            viewBox="0 0 24 24"
+            fill="none"
+            stroke="currentColor"
+            stroke-width="2"
+            stroke-linecap="round"
+            stroke-linejoin="round"
+            ><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"
+            ></path><polyline points="7 10 12 15 17 10"></polyline><line
+              x1="12"
+              x2="12"
+              y1="15"
+              y2="3"></line></svg
+          >
+          Descargar CV
+        </a>
+      </div>
+
+      <!-- Social Links -->
+      <div class="flex justify-center gap-1">
+        <a
+          href="https://github.com/tu-usuario"
+          target="_blank"
+          rel="noopener noreferrer"
+          class="p-2 text-foreground inline-flex rounded-sm hover:text-primary hover:scale-110 hover:bg-card hover:ring hover:ring-border/40 transition-all transition-discrete"
+          aria-label="GitHub"
+        >
+          <Image
+            src={githubIcon}
+            alt="GitHub"
+            class="h-6 w-6"
+            width="24"
+            height="24"
+          />
+        </a>
+        <a
+          href="https://linkedin.com/in/tu-usuario"
+          target="_blank"
+          rel="noopener noreferrer"
+          class="p-2 text-foreground inline-flex rounded-sm hover:text-primary hover:scale-110 hover:bg-card hover:ring hover:ring-border/40 transition-all transition-discrete"
+          aria-label="LinkedIn"
+        >
+          <Image
+            src={linkedinIcon}
+            alt="LinkedIn"
+            class="h-6 w-6"
+            width="24"
+            height="24"
+          />
+        </a>
+      </div>
+    </div>
+  </div>
+</section>
