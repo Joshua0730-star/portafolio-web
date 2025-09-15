@@ -1,0 +1,116 @@
+---
+import { Image } from "astro:assets";
+import githubIcon from "../assets/icon-github.svg";
+import externalLinkIcon from "../assets/icon-visit.svg"; // Asegúrate de tener este icono
+
+// Usamos los datos nuevos que definiste para Astro
+const projects = [
+  {
+    title: "Code Jay",
+    description:
+      "Plugin para la plataforma de Figma que permite generar código en tecnologías top a partir de una selección de elementos en Figma.",
+    image: "/projects/code-jay-image.svg", // Astro buscará esta imagen en la carpeta `public`
+    technologies: [
+      "Node.js",
+      "TypeScript",
+      "Javascript",
+      "Astro",
+      "Express.js",
+      "Tailwind CSS",
+    ],
+    liveUrl: "https://www.figma.com/community/plugin/1493662629267995590",
+    githubUrl: "https://github.com/Joshua0730-star/Code-Jay-",
+  },
+  {
+    title: "Landing Netflix",
+    description:
+      "Recopilación de la web de Netflix Colombia con toda su estructura y funcionalidad.",
+    image: "/projects/landing-netflix-image.svg",
+    technologies: [
+      "Astro",
+      "Html",
+      "Css",
+      "Javascript",
+      "Figma",
+      "SQL",
+      "Tailwind CSS",
+    ],
+    liveUrl: "https://netflix-landing-page-dun-psi.vercel.app/",
+    githubUrl: "https://github.com/Joshua0730-star/Netflix-Landing-Page",
+  },
+  {
+    title: "Buscador IP",
+    description:
+      "Una mini App que permite a través de una dirección IP obtener su información.",
+    image: "/projects/buscador-ip-image.svg",
+    technologies: ["Astro", "Javascript", "IP Api", "Pico CSS"],
+    liveUrl: "#", // Dejamos '#' si no hay link de demo
+    githubUrl: "#", // Dejamos '#' si no hay link de código
+  },
+];
+---
+
+<section id="projects" class="py-16 px-4 bg-muted/30">
+  <div class="container mx-auto max-w-6xl">
+    <div class="text-center mb-12">
+      <h2 class="text-3xl md:text-4xl font-bold mb-4">Proyectos Destacados</h2>
+      <p class="text-lg text-muted-foreground max-w-2xl mx-auto">
+        Una selección de mis trabajos más recientes que demuestran mis habilidades en desarrollo full-stack y diseño de interfaces.
+      </p>
+    </div>
+
+    <div class="grid md:grid-cols-2 lg:grid-cols-3 gap-6">
+      {projects.map((project) => (
+        <div class="group bg-card rounded-lg overflow-hidden hover:shadow-lg transition-all duration-300 border  border-border shadow-none flex flex-col">
+          <div class="aspect-video overflow-hidden">
+            <!-- Las imágenes de proyectos se cargan desde la carpeta `public` -->
+            <img
+              src={project.image}
+              alt={`Imagen del proyecto ${project.title}`}
+              class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-300"
+              loading="lazy"
+              width="550"
+              height="310"
+            />
+          </div>
+          <div class="p-6 flex flex-col flex-grow">
+            <h3 class="text-xl font-semibold text-card-foreground">{project.title}</h3>
+            <p class="text-sm text-muted-foreground mt-1 mb-4 flex-grow">{project.description}</p>
+            <div class="flex flex-wrap gap-2 mb-4">
+              {project.technologies.map((tech) => (
+                <span class="px-2 py-1 text-xs bg-primary/10 text-primary rounded-md">
+                  {tech}
+                </span>
+              ))}
+            </div>
+            <div class="flex gap-2 mt-auto">
+              <a
+                href={project.liveUrl}
+                target="_blank"
+                rel="noopener noreferrer"
+                class="inline-flex items-center justify-center whitespace-nowrap text-sm font-medium  ring ring-border ring-offset-background transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 disabled:pointer-events-none disabled:opacity-50 border border-input bg-background  hover:text-accent-foreground h-9 px-3 rounded-md flex-1 hover:bg-accent/30 hover:ring-accent/30"
+                aria-disabled={project.liveUrl === '#'}
+                class:list={[project.liveUrl === '#' && 'pointer-events-none opacity-50']}
+                
+              >
+                <Image src={externalLinkIcon} alt="Demo" class="mr-2 h-3.5 w-3.5" width="14" height="14" />
+                Demo
+              </a>
+              <a
+                href={project.githubUrl}
+                target="_blank"
+                rel="noopener noreferrer"
+                class="inline-flex items-center justify-center whitespace-nowrap text-sm font-medium ring-offset-background transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 disabled:pointer-events-none disabled:opacity-50 border border-input bg-background hover:bg-accent/30 hover:text-accent-foreground h-9 px-3 rounded-md flex-1 ring ring-border hover:ring-accent/30"
+                aria-disabled={project.githubUrl === '#'}
+                class:list={[project.githubUrl === '#' && 'pointer-events-none opacity-50']}
+              >
+                <Image src={githubIcon} alt="Código fuente del proyecto" class="mr-2 h-3.5 w-3.5" width="14" height="14" />
+                Código
+              </a>
+            </div>
+          </div>
+        </div>
+      ))}
+    </div>
+  </div>
+</section>
