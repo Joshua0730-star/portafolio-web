@@ -1,0 +1,226 @@
+---
+type Skill = {
+  name: string;
+  level: string;
+  icon: string;
+};
+
+const skills: Skill[] = [
+  { name: "HTML", level: "Avanzado", icon: "/skills/html.svg" },
+  { name: "CSS", level: "Avanzado", icon: "/skills/css.svg" },
+  { name: "JavaScript", level: "Intermedio", icon: "/skills/javascript.svg" },
+  { name: "TypeScript", level: "Básico", icon: "/skills/typescript.svg" },
+  { name: "Tailwind CSS", level: "Avanzado", icon: "/skills/tailwindcss.svg" },
+  { name: "Node.js", level: "Intermedio", icon: "/skills/nodejs.svg" },
+  { name: "Astro", level: "Intermedio", icon: "/skills/astro.svg" },
+  { name: "Express.js", level: "Intermedio", icon: "/skills/expressjs.svg" },
+  { name: "SQL", level: "Intermedio", icon: "/skills/sql.svg" },
+  { name: "SQLite", level: "Intermedio", icon: "/skills/sqlite.svg" },
+  { name: "Figma", level: "Avanzado", icon: "/skills/figma.svg" },
+  { name: "UX/UI", level: "Avanzado", icon: "/skills/ui.svg" },
+  { name: "Gsap", level: "Básico", icon: "/skills/gsap.svg" },
+  { name: "Git", level: "Intermedio", icon: "/skills/git.svg" },
+  { name: "Github", level: "Intermedio", icon: "/skills/github.svg" },
+  { name: "Terminal", level: "Avanzado", icon: "/skills/terminal.svg" },
+];
+
+const skillsPerSlide: number = 4;
+const totalSlides: number = Math.ceil(skills.length / skillsPerSlide);
+---
+
+<section id="skills" class="py-20 bg-muted/30">
+  <div class="container mx-auto px-4">
+    <header class="text-center mb-16">
+      <h2 class="text-3xl font-bold text-foreground mb-4">
+        Habilidades Técnicas
+      </h2>
+      <p class="text-lg text-muted-foreground max-w-2xl mx-auto">
+        Tecnologías y herramientas que domino para crear soluciones web
+        completas
+      </p>
+    </header>
+
+    <!-- Vista de escritorio (Grid) -->
+    <div
+      class="hidden sm:grid grid-cols-2 md:grid-cols-4 gap-6 max-w-6xl mx-auto slider-big slider"
+    >
+      {
+        skills.map((skill) => (
+          <div class="bg-card rounded-lg p-6 text-center hover:shadow-lg transition-shadow border border-border flex flex-col items-center justify-center">
+            <img
+              src={skill.icon}
+              alt={skill.name}
+              class="h-10 w-10 mb-3"
+              loading="lazy"
+            />
+            <h3 class="font-semibold text-card-foreground mb-2">
+              {skill.name}
+            </h3>
+            <span
+              class:list={[
+                "text-xs text-primary-foreground font-medium me-2 px-2.5 py-0.5 rounded", // estas se aplicaran si o si, son las por defecto
+                {
+                  // estas clases seran dinamicas
+                  "bg-primary ": skill.level === "Avanzado", // <-- se aplica la key siempre y cuando el valor sea true
+                  "bg-secondary text-secondary-foreground":
+                    skill.level == "Intermedio",
+                  "bg-basic-tag": skill.level === "Básico",
+                },
+              ]}
+            >
+              {skill.level}
+            </span>
+          </div>
+        ))
+      }
+    </div>
+
+    <!-- Vista Móvil (Carrusel con JS) -->
+    <div class="sm:hidden slider slider-small">
+      <div class="relative overflow-hidden">
+        <div
+          id="slides-container"
+          class="flex transition-transform duration-500 ease-in-out"
+        >
+          {
+            // se crea un array de longitud de "totalSlides"
+            Array.from({ length: totalSlides }).map((_, slideIndex) => {
+              const slideSkills = skills.slice(
+                // los skills que se van a mostrar por slide
+                // en cada iteracion se extraen de 4 en 4 skills de objetos
+                slideIndex * skillsPerSlide, // <-- ej: 0: 0 * 4 = 0;
+                (slideIndex + 1) * skillsPerSlide // <--- ej: (0 + 1 = 1) * 4 = 4 entonces el pedazo de array sera (0, 4)
+              );
+              return (
+                // lo que renderizo es en el return
+                <div class="w-full flex-shrink-0">
+                  <div class="grid grid-cols-2 gap-4 px-4">
+                    {slideSkills.map((skill) => (
+                      <div class="bg-card rounded-lg p-4 text-center hover:shadow-lg transition-all duration-300 border border-border transform hover:scale-105 h-full flex flex-col justify-center items-center">
+                        <img
+                          src={skill.icon}
+                          alt={skill.name}
+                          class="h-8 w-8 mb-2"
+                          loading="lazy"
+                        />
+                        <h3 class="font-semibold text-card-foreground mb-2 text-sm">
+                          {skill.name}
+                        </h3>
+                        <span
+                          class:list={[
+                            "text-xs text-primary-foreground font-medium me-2 px-2.5 py-0.5 rounded",
+                            {
+                              "bg-primary": skill.level === "Avanzado",
+                              "bg-secondary ": skill.level === "Intermedio",
+                              "bg-basic-tag": skill.level === "Básico",
+                            },
+                          ]}
+                        >
+                          {skill.level}
+                        </span>
+                      </div>
+                    ))}
+                  </div>
+                </div>
+              );
+            })
+          }
+        </div>
+      </div>
+      <div id="pagination-dots" class="flex justify-center mt-6 space-x-2">
+        {
+          Array.from({ length: totalSlides }).map((_, index) => (
+            <button
+              data-slide-to={index}
+              aria-label={`Ir a la página ${index + 1}`}
+              class="pagination-dot w-2 h-2 rounded-full transition-all duration-300 bg-muted-foreground/30 hover:bg-muted-foreground/50"
+            />
+          ))
+        }
+      </div>
+    </div>
+  </div>
+</section>
+
+<script define:vars={{ totalSlides }}>
+  //En Astro, define:vars expone variables del frontmatter (totalSlides) dentro del script.
+
+  // Así, totalSlides ya está disponible en el JS del navegador (valor dinámico calculado en el servidor/render).
+  document.addEventListener("DOMContentLoaded", () => {
+    const slidesContainer = document.getElementById("slides-container");
+    const paginationDotsContainer = document.getElementById("pagination-dots");
+    const dots = paginationDotsContainer.querySelectorAll(".pagination-dot");
+    let currentSlide = 0;
+    let autoPlayInterval; // hace referencia al intervalo
+
+    function goToSlide(slideIndex) {
+      if (!slidesContainer) return;
+      slidesContainer.style.transform = `translateX(-${slideIndex * 100}%)`;
+
+      // Mueve el contenedor de slides hacia la izquierda.
+      // Multiplica el índice por 100% → cada slide ocupa 100% del ancho del contenedor.
+      // Ejemplo: slideIndex = 2 → translateX(-200%) → muestra el tercer slide.
+
+      dots.forEach((dot, index) => {
+        dot.classList.toggle("bg-primary", index === slideIndex);
+        dot.classList.toggle("w-6", index === slideIndex);
+        dot.classList.toggle("bg-muted-foreground/30", index !== slideIndex);
+        dot.classList.toggle("w-2", index !== slideIndex);
+      });
+      currentSlide = slideIndex;
+    }
+
+    function startAutoPlay() {
+      stopAutoPlay(); // Evita múltiples intervalos corriendo a la vez
+      autoPlayInterval = setInterval(() => {
+        const nextSlide = (currentSlide + 1) % totalSlides;
+        goToSlide(nextSlide);
+      }, 3000); // Cambié el intervalo a 3 segundos para una mejor UX
+    }
+
+    function stopAutoPlay() {
+      clearInterval(autoPlayInterval);
+    }
+
+    dots.forEach((dot) => {
+      dot.addEventListener("click", () => {
+        const slideIndex = parseInt(dot.dataset.slideTo, 10);
+        goToSlide(slideIndex);
+        // Reinicia el carrusel automático al hacer clic manual para evitar cambios bruscos
+        startAutoPlay();
+      });
+    });
+
+    // Iniciar
+    goToSlide(0);
+    startAutoPlay();
+  });
+</script>
+
+<style>
+  /* Oculta la barra de scroll para una apariencia más limpia */
+  #skills-carousel {
+    -ms-overflow-style: none; /* IE and Edge */
+    scrollbar-width: none; /* Firefox */
+  }
+  #skills-carousel::-webkit-scrollbar {
+    display: none; /* Chrome, Safari and Opera */
+  }
+
+  .slider {
+    font-family:
+      "Geist Mono Variable",
+      "Montserrat",
+      system-ui,
+      -apple-system,
+      BlinkMacSystemFont,
+      "Segoe UI",
+      Roboto,
+      Oxygen,
+      Ubuntu,
+      Cantarell,
+      "Open Sans",
+      "Helvetica Neue",
+      sans-serif;
+  }
+</style>
