@@ -1,6 +1,7 @@
 ---
-// Definimos las tecnologías que estás aprendiendo.
-// Las imágenes se tomarán de la carpeta `public/skills/`.
+import Book from "../assets/icon-book.svg";
+
+// Las imágenes se toman de la carpeta `public/skills/`.
 const learningTechs = [
   {
     name: "MongoDB",
@@ -25,7 +26,7 @@ const learningTechs = [
     <div class="text-center mb-16">
       <div class="flex items-center justify-center gap-3 mb-4">
         <!-- BookOpen Icon -->
-        <svg
+        <!-- <svg
           xmlns="http://www.w3.org/2000/svg"
           width="24"
           height="24"
@@ -39,7 +40,8 @@ const learningTechs = [
         >
           <path d="M2 3h6a4 4 0 0 1 4 4v14a3 3 0 0 0-3-3H2z"></path>
           <path d="M22 3h-6a4 4 0 0 0-4 4v14a3 3 0 0 1 3-3h7z"></path>
-        </svg>
+        </svg> -->
+        <Book class:list={["md:size-8"]} />
         <h2 class="text-3xl font-bold text-foreground">
           Actualmente Aprendiendo
         </h2>
@@ -51,21 +53,25 @@ const learningTechs = [
 
     <div class="grid md:grid-cols-3 gap-8 max-w-4xl mx-auto">
       {
-        learningTechs.map((tech) => (
-          <div class="bg-card rounded-lg p-8 text-center hover:shadow-lg transition-all duration-300 border border-border hover:border-primary/50 flex flex-col items-center">
-            <img
-              src={tech.icon}
-              alt={`Icono de ${tech.name}`}
-              class="h-14 w-14 mb-4"
-              loading="lazy"
-            />
-            <h3 class="text-xl font-semibold text-card-foreground mb-2">
-              {tech.name}
-            </h3>
-            <p class="text-muted-foreground mb-4">{tech.description}</p>
-            <span class="text-xs font-medium border border-border px-2.5 py-0.5 rounded-full">
-              En progreso
-            </span>
+        learningTechs.map(({ name, icon, description }) => (
+          <div class="bg-card rounded-lg p-8 text-center hover:shadow-lg transition-all duration-300 border border-border hover:border-primary/50 flex flex-col items-center justify-between">
+            <div class="flex flex-col mx-auto justify-center items-center">
+              <img
+                src={icon}
+                alt={`Icono de ${name}`}
+                class="h-14 w-14 mb-4"
+                loading="lazy"
+              />
+              <h3 class="text-xl font-semibold text-card-foreground mb-2">
+                {name}
+              </h3>
+              <p class="text-muted-foreground mb-4">{description}</p>
+            </div>
+            <div class="w-full">
+              <span class="text-xs font-medium border border-border px-2.5 py-0.5 rounded-full">
+                En progreso
+              </span>
+            </div>
           </div>
         ))
       }

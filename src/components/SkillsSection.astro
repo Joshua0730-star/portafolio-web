@@ -46,7 +46,7 @@ const totalSlides: number = Math.ceil(skills.length / skillsPerSlide);
     >
       {
         skills.map((skill) => (
-          <div class="bg-card rounded-lg p-6 text-center hover:shadow-lg transition-shadow border border-border flex flex-col items-center justify-center">
+          <div class="bg-card rounded-lg p-6 text-center hover:shadow-lg transition-shadow border border-border flex flex-col items-center justify-center mx-auto  grow w-full max-w-md">
             <img
               src={skill.icon}
               alt={skill.name}

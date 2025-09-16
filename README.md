@@ -1,46 +1,30 @@
-# Astro Starter Kit: Basics
+# Sistema de Diseño - Portafolio Profesional
 
-```sh
-pnpm create astro@latest -- --template basics
-```
+## Paleta de Colores
 
-> 🧑‍🚀 **Seasoned astronaut?** Delete this file. Have fun!
+### Colores Principales
 
-## 🚀 Project Structure
+- **Primary Blue**: `#2563eb` - Color principal para CTAs y elementos importantes
+- **Secondary Blue**: `#3b82f6` - Color secundario para elementos de apoyo
+- **Accent Blue**: `#60a5fa` - Color de acento para highlights y hover states
 
-Inside of your Astro project, you'll see the following folders and files:
+### Neutros
 
-```text
-/
-├── public/
-│   └── favicon.svg
-├── src
-│   ├── assets
-│   │   └── astro.svg
-│   ├── components
-│   │   └── Welcome.astro
-│   ├── layouts
-│   │   └── Layout.astro
-│   └── pages
-│       └── index.astro
-└── package.json
-```
+- **Background**: `#ffffff` (claro) / `#0f172a` (oscuro)
+- **Foreground**: `#1f2937` (claro) / `#f8fafc` (oscuro)
+- **Card Background**: `#f8fafc` (claro) / `#1e293b` (oscuro)
+- **Muted**: `#f1f5f9` (claro) / `#334155` (oscuro)
+- **Border**: `#e2e8f0` (claro) / `#334155` (oscuro)
 
-To learn more about the folder structure of an Astro project, refer to [our guide on project structure](https://docs.astro.build/en/basics/project-structure/).
+### Uso en Figma
 
-## 🧞 Commands
+1. Importa los valores hexadecimales del archivo `color-palette.css`
+2. Crea estilos de color en Figma con estos valores
+3. Usa la nomenclatura consistente (primary-blue, secondary-blue, etc.)
+4. Mantén la jerarquía de colores para accesibilidad
 
-All commands are run from the root of the project, from a terminal:
+### Accesibilidad
 
-| Command                   | Action                                           |
-| :------------------------ | :----------------------------------------------- |
-| `pnpm install`             | Installs dependencies                            |
-| `pnpm dev`             | Starts local dev server at `localhost:4321`      |
-| `pnpm build`           | Build your production site to `./dist/`          |
-| `pnpm preview`         | Preview your build locally, before deploying     |
-| `pnpm astro ...`       | Run CLI commands like `astro add`, `astro check` |
-| `pnpm astro -- --help` | Get help using the Astro CLI                     |
-
-## 👀 Want to learn more?
-
-Feel free to check [our documentation](https://docs.astro.build) or jump into our [Discord server](https://astro.build/chat).
+- Todos los colores cumplen con WCAG 2.1 AA para contraste
+- Los azules principales tienen suficiente contraste sobre fondos blancos
+- En modo oscuro, los colores se ajustan para mantener legibilidad

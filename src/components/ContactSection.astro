@@ -1,6 +1,14 @@
 ---
-// Aquí definimos la información de contacto para que sea fácil de actualizar.
-const contactInfo = {
+// importacion de iconos
+
+// Informacion de contacto
+
+type schemaContact = {
+  email: string;
+  phone: string;
+  location: string;
+};
+const contactInfo: schemaContact = {
   email: "josuemarchena0730@gmail.com",
   phone: "+57 304 449 0607",
   location: "Colombia (Trabajo remoto)",
@@ -90,7 +98,6 @@ const contactInfo = {
               <div class="p-2 bg-primary/10 rounded-lg">
                 <!-- MapPin Icon -->
                 <svg
-                  xmlns="http://www.w3.org/2000/svg"
                   width="24"
                   height="24"
                   viewBox="0 0 24 24"
@@ -174,20 +181,19 @@ const contactInfo = {
     </div>
   </div>
 
-  <script>
+  <!-- <script>
     document.addEventListener("DOMContentLoaded", () => {
       const form = document.getElementById("contact-form");
       if (form) {
         form.addEventListener("submit", (e) => {
           e.preventDefault();
 
-          // Usamos FormData para obtener los datos del formulario fácilmente.
+          // Esto para obtener los datos del formulario fácilmente.
           const formData = new FormData(form as HTMLFormElement);
           const data = Object.fromEntries(formData.entries());
 
           console.log("Formulario enviado:", data);
 
-          // Aquí es donde integrarías un servicio como Formspree, Netlify Forms, etc.
           // Por ejemplo, podrías hacer un fetch a un endpoint.
 
           alert("Gracias por tu mensaje. ¡Te responderé pronto!");
@@ -195,5 +201,5 @@ const contactInfo = {
         });
       }
     });
-  </script>
+  </script> -->
 </section>
