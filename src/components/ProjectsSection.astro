@@ -38,6 +38,15 @@ const projects = [
     liveUrl: "https://netflix-landing-page-dun-psi.vercel.app/",
     githubUrl: "https://github.com/Joshua0730-star/Netflix-Landing-Page",
   },
+   {
+    title: "Api REST",
+    description:
+      "Una Api REST hecha con buenas practicas (MVC, ID, CRUD, VALIDACIONES) con una base de datos SQL",
+    image: "/projects/MVC-image.png",
+    technologies: ["Node JS", "SQL", "Arquitectura MVC", "Validaciones"],
+    liveUrl: "https://rest-api-deploy-2ep9.onrender.com/movies",
+    githubUrl: "https://github.com/Joshua0730-star/nodejs-intermedio", 
+  },
   {
     title: "Buscador IP",
     description:
@@ -46,7 +55,7 @@ const projects = [
     technologies: ["Astro", "Javascript", "IP Api", "Pico CSS"],
     liveUrl: "https://buscador-ip-nu.vercel.app/", // Dejamos '#' si no hay link de demo
     githubUrl: "https://github.com/Joshua0730-star/buscadaor-ip", // Dejamos '#' si no hay link de código
-  },
+  }
 ];
 ---
 
@@ -59,9 +68,9 @@ const projects = [
       </p>
     </div>
 
-    <div class="grid md:grid-cols-2 lg:grid-cols-3 gap-6">
+    <div class="grid md:grid-cols-2  gap-6 lg:gap-4 mx-auto max-w-3xl">
       {projects.map((project) => (
-        <div class="group bg-card rounded-lg overflow-hidden hover:shadow-lg transition-all duration-300 border  border-border shadow-none flex flex-col">
+        <div class="group bg-card rounded-lg overflow-hidden hover:shadow-lg transition-all duration-300 border  border-border shadow-none flex flex-col max-w-md mx-auto">
           <div class="aspect-video overflow-hidden">
             <!-- Las imágenes de proyectos se cargan desde la carpeta `public` -->
             <img
