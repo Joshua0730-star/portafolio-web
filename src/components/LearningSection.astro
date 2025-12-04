@@ -4,20 +4,12 @@ import Book from "../assets/icon-book.svg";
 // Las imágenes se toman de la carpeta `public/skills/`.
 const learningTechs = [
   {
-    name: "MongoDB",
-    icon: "/skills/mongodb.svg",
-    description: "Base de datos NoSQL",
+    name: "N8N",
+    icon: "/skills/n8n.svg",
+    description:
+      "Una herramienta de automatización de flujos de trabajo para automatizar tareas y procesos en la nube.",
   },
-  {
-    name: "Python",
-    icon: "/skills/python.svg",
-    description: "Desarrollo backend avanzado e Inteligencia Artificial",
-  },
-  {
-    name: "React",
-    icon: "/skills/react.svg",
-    description: "Biblioteca de interfaces",
-  },
+
 ];
 ---
 
@@ -51,10 +43,14 @@ const learningTechs = [
       </p>
     </div>
 
-    <div class="grid md:grid-cols-3 gap-8 max-w-4xl mx-auto">
+    <div class="grid  gap-8 max-w-4xl mx-auto place-content-center"
+    class:list={{
+      "md:grid-cols-3" : learningTechs.length > 1 && learningTechs.length != 2,
+    }}
+    >
       {
         learningTechs.map(({ name, icon, description }) => (
-          <div class="bg-card rounded-lg p-8 text-center hover:shadow-lg transition-all duration-300 border border-border hover:border-primary/50 flex flex-col items-center justify-between max-w-md mx-auto w-full">
+          <div class="bg-card rounded-lg p-8 text-center hover:shadow-lg transition-all duration-300 border border-border hover:border-primary/50 flex flex-col items-center justify-between max-w-md mx-auto w-full lg:mx-auto">
             <div class="flex flex-col mx-auto justify-center items-center">
               <img
                 src={icon}
