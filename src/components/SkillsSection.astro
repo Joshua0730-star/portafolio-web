@@ -1,17 +1,13 @@
 ---
 import { skills, skillsPerSlide, totalSlides } from "../utils/details";
-
 ---
 
 <section id="skills" class="py-20 bg-muted/30">
   <div class="container mx-auto px-4">
     <header class="text-center mb-16">
-      <h2 class="text-3xl font-bold text-foreground mb-4">
-        Habilidades Técnicas
-      </h2>
+      <h2 class="text-3xl font-bold text-foreground mb-4">Technical Skills</h2>
       <p class="text-lg text-muted-foreground max-w-2xl mx-auto">
-        Tecnologías y herramientas que domino para crear soluciones web
-        completas
+        Technologies and tools I master to create complete web solutions
       </p>
     </header>
 
@@ -36,10 +32,10 @@ import { skills, skillsPerSlide, totalSlides } from "../utils/details";
                 "text-xs text-primary-foreground font-medium me-2 px-2.5 py-0.5 rounded", // estas se aplicaran si o si, son las por defecto
                 {
                   // estas clases seran dinamicas
-                  "bg-primary ": skill.level === "Avanzado", // <-- se aplica la key siempre y cuando el valor sea true
+                  "bg-primary ": skill.level === "Advanced", // <-- se aplica la key siempre y cuando el valor sea true
                   "bg-secondary text-secondary-foreground":
-                    skill.level == "Intermedio",
-                  "bg-basic-tag": skill.level === "Básico",
+                    skill.level == "Intermediate",
+                  "bg-basic-tag": skill.level === "Basic",
                 },
               ]}
             >
@@ -85,9 +81,9 @@ import { skills, skillsPerSlide, totalSlides } from "../utils/details";
                           class:list={[
                             "text-xs text-primary-foreground font-medium me-2 px-2.5 py-0.5 rounded",
                             {
-                              "bg-primary": skill.level === "Avanzado",
-                              "bg-secondary ": skill.level === "Intermedio",
-                              "bg-basic-tag": skill.level === "Básico",
+                              "bg-primary": skill.level === "Advanced",
+                              "bg-secondary ": skill.level === "Intermediate",
+                              "bg-basic-tag": skill.level === "Basic",
                             },
                           ]}
                         >
@@ -107,7 +103,7 @@ import { skills, skillsPerSlide, totalSlides } from "../utils/details";
           Array.from({ length: totalSlides }).map((_, index) => (
             <button
               data-slide-to={index}
-              aria-label={`Ir a la página ${index + 1}`}
+              aria-label={`Go to page ${index + 1}`}
               class="pagination-dot w-2 h-2 rounded-full transition-all duration-300 bg-muted-foreground/30 hover:bg-muted-foreground/50"
             />
           ))

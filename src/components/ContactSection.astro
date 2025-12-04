@@ -11,18 +11,18 @@ type schemaContact = {
 const contactInfo: schemaContact = {
   email: "josuemarchena0730@gmail.com",
   phone: "+57 304 449 0607",
-  location: "Colombia (Trabajo remoto)",
+  location: "Colombia (Remote work)",
 };
 ---
 
 <section id="contact" class="py-16 px-4 bg-background mx-auto">
   <div class="container mx-auto max-w-4xl">
     <div class="text-center mb-12">
-      <h2 class="text-3xl md:text-4xl font-bold mb-4">¡Trabajemos Juntos!</h2>
+      <h2 class="text-3xl md:text-4xl font-bold mb-4">Let's Work Together!</h2>
       <p class="text-lg text-muted-foreground max-w-2xl mx-auto">
-        Me encantaria hacer parte de tu equipo de trabajo, estoy listo... con
-        muchas ganas y pasion por poder ayudar y contribuir a nuevas metas y
-        cúspides en los proyectos de tu empresa.
+        I would love to be part of your team. I'm ready, motivated, and
+        passionate about contributing to new goals and helping your projects
+        reach the next level.
       </p>
     </div>
 
@@ -33,9 +33,9 @@ const contactInfo: schemaContact = {
       <div class="space-y-6 mx-auto">
         <div class="bg-card border-border border rounded-lg mx-auto">
           <div class="p-6">
-            <h3 class="text-xl font-semibold">Información de Contacto</h3>
+            <h3 class="text-xl font-semibold">Contact Information</h3>
             <p class="text-sm text-muted-foreground">
-              No dudes en contactarme por cualquiera de estos medios.
+              Feel free to reach out through any of these channels.
             </p>
           </div>
           <div class="p-6 pt-0 space-y-4">
@@ -86,7 +86,7 @@ const contactInfo: schemaContact = {
                 >
               </div>
               <div>
-                <p class="font-medium">Teléfono</p>
+                <p class="font-medium">Phone</p>
                 <a
                   href={`tel:${contactInfo.phone.replace(/\s/g, "")}`}
                   class="text-sm text-muted-foreground hover:text-primary transition-colors"
@@ -112,7 +112,7 @@ const contactInfo: schemaContact = {
                 >
               </div>
               <div>
-                <p class="font-medium">Ubicación</p>
+                <p class="font-medium">Location</p>
                 <p class="text-sm text-muted-foreground">
                   {contactInfo.location}
                 </p>

@@ -8,7 +8,7 @@ const projects = [
   {
     title: "Code Jay",
     description:
-      "Plugin para la plataforma de Figma que permite generar código en tecnologías top a partir de una selección de elementos en Figma.",
+      "Figma plugin that generates production-ready code in top technologies from any selection of elements.",
     image: "/projects/code-jay-image.svg", // Astro buscará esta imagen en la carpeta `public`
     technologies: [
       "Node.js",
@@ -23,27 +23,27 @@ const projects = [
   },
   
    {
-    title: "Api REST",
+    title: "REST API",
     description:
-      "Una Api REST hecha con buenas practicas (MVC, ID, CRUD, VALIDACIONES) con una base de datos SQL",
+      "A REST API built with best practices (MVC, DI, CRUD, validations) backed by an SQL database",
     image: "/projects/MVC-image.png",
-    technologies: ["Node JS", "SQL", "Arquitectura MVC", "Validaciones"],
+    technologies: ["Node JS", "SQL", "MVC Architecture", "Validations"],
     liveUrl: "https://rest-api-deploy-2ep9.onrender.com/movies",
     githubUrl: "https://github.com/Joshua0730-star/nodejs-intermedio", 
   },
   {
-    title: "Resumidor de Videos",
+    title: "Video Summarizer",
     description:
-      "Una App que permite resumir videos de Youtube y transcribirlos como un cohete 🚀. Integrado con IA para un mejor resultado (aprendizaje).",
+      "An app that summarizes YouTube videos and transcribes them at rocket speed 🚀. Integrated with AI for better learning outputs.",
     image: "/projects/resumen-videos.png",
     technologies: ["Next JS", "Typescript", "Tailwind CSS", "React Hooks", "IA Agents"],
     liveUrl: "https://resumen-videos.vercel.app/", // Dejamos '#' si no hay link de demo
     githubUrl: "https://github.com/Joshua0730-star/videore", // Dejamos '#' si no hay link de código
   },
   {
-    title: "Landing Netflix",
+    title: "Netflix Landing",
     description:
-      "Recopilación de la web de Netflix Colombia con toda su estructura y funcionalidad.",
+      "Recreation of Netflix Colombia's website with its full structure and functionality.",
     image: "/projects/landing-netflix-image.svg",
     technologies: [
       "Astro",
@@ -63,9 +63,9 @@ const projects = [
 <section id="projects" class="py-16 px-4 bg-muted/30">
   <div class="container mx-auto max-w-6xl">
     <div class="text-center mb-12">
-      <h2 class="text-3xl md:text-4xl font-bold mb-4">Proyectos Destacados</h2>
+      <h2 class="text-3xl md:text-4xl font-bold mb-4">Featured Projects</h2>
       <p class="text-lg text-muted-foreground max-w-2xl mx-auto">
-        Una selección de mis trabajos más recientes que demuestran mis habilidades en desarrollo full-stack y diseño de interfaces.
+        A selection of my latest work showcasing my full-stack development and interface design skills.
       </p>
     </div>
 
@@ -76,7 +76,7 @@ const projects = [
             <!-- Las imágenes de proyectos se cargan desde la carpeta `public` -->
             <img
               src={project.image}
-              alt={`Imagen del proyecto ${project.title}`}
+              alt={`Project image for ${project.title}`}
               class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-300"
               loading="lazy"
               width="550"
@@ -114,8 +114,8 @@ const projects = [
                 aria-disabled={project.githubUrl === '#'}
                 class:list={[project.githubUrl === '#' && 'pointer-events-none opacity-50']}
               >
-                <Image src={githubIcon} alt="Código fuente del proyecto" class="mr-2 h-3.5 w-3.5" width="14" height="14" />
-                Código
+                <Image src={githubIcon} alt="Project source code" class="mr-2 h-3.5 w-3.5" width="14" height="14" />
+                Code
               </a>
             </div>
           </div>
