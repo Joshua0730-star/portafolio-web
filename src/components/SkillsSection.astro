@@ -1,31 +1,6 @@
 ---
-type Skill = {
-  name: string;
-  level: string;
-  icon: string;
-};
+import { skills, skillsPerSlide, totalSlides } from "../utils/details";
 
-const skills: Skill[] = [
-  { name: "HTML", level: "Avanzado", icon: "/skills/html.svg" },
-  { name: "CSS", level: "Avanzado", icon: "/skills/css.svg" },
-  { name: "JavaScript", level: "Intermedio", icon: "/skills/javascript.svg" },
-  { name: "TypeScript", level: "Básico", icon: "/skills/typescript.svg" },
-  { name: "Tailwind CSS", level: "Avanzado", icon: "/skills/tailwindcss.svg" },
-  { name: "Node.js", level: "Intermedio", icon: "/skills/nodejs.svg" },
-  { name: "Astro", level: "Intermedio", icon: "/skills/astro.svg" },
-  { name: "Express.js", level: "Intermedio", icon: "/skills/expressjs.svg" },
-  { name: "SQL", level: "Intermedio", icon: "/skills/sql.svg" },
-  { name: "SQLite", level: "Intermedio", icon: "/skills/sqlite.svg" },
-  { name: "Figma", level: "Avanzado", icon: "/skills/figma.svg" },
-  { name: "UX/UI", level: "Avanzado", icon: "/skills/ui.svg" },
-  { name: "Gsap", level: "Básico", icon: "/skills/gsap.svg" },
-  { name: "Git", level: "Intermedio", icon: "/skills/git.svg" },
-  { name: "Github", level: "Intermedio", icon: "/skills/github.svg" },
-  { name: "Terminal", level: "Avanzado", icon: "/skills/terminal.svg" },
-];
-
-const skillsPerSlide: number = 4;
-const totalSlides: number = Math.ceil(skills.length / skillsPerSlide);
 ---
 
 <section id="skills" class="py-20 bg-muted/30">
