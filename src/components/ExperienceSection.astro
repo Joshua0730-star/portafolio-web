@@ -1,9 +1,24 @@
 ---
-const experience = {
+const experience = [
+{
+  title: "Desarrollador Full Stack",
+  company: "CMCeledon S.A.S", // Contenido actualizado como solicitaste
+  location: "Remoto",
+  period: "2025 - Hace 2 meses",
+  description:
+    "Desarrollo de sistemas de software para la gestion de residuos en una app nacional usada por clientes reales.",
+  learnings: [
+    "Conceptos de arquitectura de microservicios",
+    "Manejo de sistema de componentes reutilizables y escalables",
+    "DDD e Inyeccion de dependencias",
+    "Manejo de APIs",
+    "Procedimientos almacenados de bases de datos",
+  ],
+},{
   title: "Desarrollador Frontend Junior",
   company: "Drugstore", // Contenido actualizado como solicitaste
   location: "Remoto",
-  period: "2024 - Hace 4 meses",
+  period: "2024 - Hace 12 meses",
   description:
     "Desarrollo de interfaces de usuario responsivas para un sistema hecho para una drogueria local. Colaboración en equipo ágil para entregar funcionalidades de alta calidad.",
   achievements: [
@@ -11,7 +26,7 @@ const experience = {
     "Implementé sistema de componentes reutilizables",
     "Participé en code reviews y mentoring de nuevos desarrolladores",
   ],
-};
+}];
 ---
 
 <section
@@ -30,6 +45,7 @@ const experience = {
     </div>
 
     <div class="space-y-6">
+      {experience.map(({title, company, location, period, description, achievements, learnings}) => (
       <div
         class="border-border border-2 bg-card hover:shadow-lg transition-shadow rounded-lg overflow-hidden md:max-w-xl mx-auto"
       >
@@ -39,9 +55,9 @@ const experience = {
           >
             <div>
               <h3 class="text-xl font-semibold text-card-foreground">
-                {experience.title}
+                {title}
               </h3>
-              <p class="text-primary font-medium">{experience.company}</p>
+              <p class="text-primary font-medium">{company}</p>
             </div>
             <div
               class="flex flex-col md:items-end gap-1 text-sm text-muted-foreground"
@@ -66,7 +82,7 @@ const experience = {
                     y="4"
                     rx="2"></rect><path d="M3 10h18"></path></svg
                 >
-                {experience.period}
+                {period}
               </div>
               <div class="flex items-center gap-1.5">
                 <!-- MapPin Icon -->
@@ -84,20 +100,25 @@ const experience = {
                   ><path d="M20 10c0 6-8 12-8 12s-8-6-8-12a8 8 0 0 1 16 0Z"
                   ></path><circle cx="12" cy="10" r="3"></circle></svg
                 >
-                {experience.location}
+                {location}
               </div>
             </div>
           </div>
         </div>
         <div class="px-6 pb-6 space-y-4">
-          <p class="text-muted-foreground">{experience.description}</p>
+          <p class="text-muted-foreground">{description}</p>
           <div>
             <h4 class="font-medium mb-2 text-card-foreground">
               Logros destacados:
             </h4>
             <ul class="space-y-1">
               {
-                experience.achievements.map((achievement) => (
+                achievements ? achievements.map((achievement) => (
+                  <li class="flex items-start gap-2 text-sm text-muted-foreground">
+                    <span class="text-primary mt-1">•</span>
+                    {achievement}
+                  </li>
+                )) : learnings.map((achievement) => (
                   <li class="flex items-start gap-2 text-sm text-muted-foreground">
                     <span class="text-primary mt-1">•</span>
                     {achievement}
@@ -108,6 +129,7 @@ const experience = {
           </div>
         </div>
       </div>
+      ))}
     </div>
   </div>
 </section>
