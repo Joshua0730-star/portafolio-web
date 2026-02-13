@@ -1,20 +1,6 @@
 ---
 const experience = [
 {
-  title: "Full Stack Developer",
-  company: "CMCeledon S.A.S", // Contenido actualizado como solicitaste
-  location: "Remote",
-  period: "2025 - 2 months ago",
-  description:
-    "Software systems development for waste management in a nationwide app used by real customers.",
-  learnings: [
-    "Microservices architecture concepts",
-    "Management of scalable, reusable component systems",
-    "DDD and dependency injection",
-    "API management",
-    "Database stored procedures",
-  ],
-},{
   title: "Junior Frontend Developer",
   company: "Drugstore", // Contenido actualizado como solicitaste
   location: "Remote",
@@ -44,7 +30,7 @@ const experience = [
     </div>
 
     <div class="space-y-6">
-      {experience.map(({title, company, location, period, description, achievements, learnings}) => (
+      {experience.map(({title, company, location, period, description, achievements}) => (
       <div
         class="border-border border-2 bg-card hover:shadow-lg transition-shadow rounded-lg overflow-hidden md:max-w-xl mx-auto"
       >
@@ -117,12 +103,7 @@ const experience = [
                     <span class="text-primary mt-1">•</span>
                     {achievement}
                   </li>
-                )) : learnings.map((achievement) => (
-                  <li class="flex items-start gap-2 text-sm text-muted-foreground">
-                    <span class="text-primary mt-1">•</span>
-                    {achievement}
-                  </li>
-                ))
+                )): []
               }
             </ul>
           </div>
