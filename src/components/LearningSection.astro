@@ -1,13 +1,17 @@
 ---
 import Book from "../assets/icon-book.svg";
+import { useTranslations } from "../i18n/ui";
+import { DEFAULT_LOCALE } from "../i18n/config";
+import type { Locale } from "../i18n/config";
 
-// Las imágenes se toman de la carpeta `public/skills/`.
+const locale = (Astro.currentLocale ?? DEFAULT_LOCALE) as Locale;
+const t = useTranslations(locale);
+
 const learningTechs = [
   {
-    name: "N8N",
+    name: t("learning.tech.n8n"),
     icon: "/skills/n8n.svg",
-    description:
-      "A workflow automation tool to orchestrate tasks and processes in the cloud.",
+    description: t("learning.tech.n8n.desc"),
   },
 ];
 ---
@@ -33,10 +37,12 @@ const learningTechs = [
           <path d="M22 3h-6a4 4 0 0 0-4 4v14a3 3 0 0 1 3-3h7z"></path>
         </svg> -->
         <Book class:list={["md:size-8"]} />
-        <h2 class="text-3xl font-bold text-foreground">Currently Learning</h2>
+        <h2 class="text-3xl font-bold text-foreground">
+          {t("learning.title")}
+        </h2>
       </div>
       <p class="text-lg text-muted-foreground max-w-2xl mx-auto">
-        Technologies I'm studying to expand my skill set.
+        {t("learning.subtitle")}
       </p>
     </div>
 
@@ -63,7 +69,7 @@ const learningTechs = [
             </div>
             <div class="w-full">
               <span class="text-xs font-medium border border-border px-2.5 py-0.5 rounded-full">
-                In progress
+                {t("learning.inProgress")}
               </span>
             </div>
           </div>

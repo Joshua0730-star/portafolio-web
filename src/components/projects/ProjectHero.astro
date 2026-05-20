@@ -1,0 +1,124 @@
+---
+import type { Project } from "../../lib/projects";
+import StatusBadge from "./StatusBadge.astro";
+import { useTranslations } from "../../i18n/ui";
+import { localePath, DEFAULT_LOCALE } from "../../i18n/config";
+import type { Locale } from "../../i18n/config";
+
+interface Props {
+  project: Project;
+}
+const { project } = Astro.props;
+const { data } = project;
+const locale = (Astro.currentLocale ?? DEFAULT_LOCALE) as Locale;
+const t = useTranslations(locale);
+---
+
+<header
+  class="relative overflow-hidden border-b border-border bg-gradient-to-b from-primary/5 to-background"
+>
+  <div
+    aria-hidden="true"
+    class="pointer-events-none absolute inset-0 [background-image:linear-gradient(to_right,rgba(127,127,127,0.08)_1px,transparent_1px),linear-gradient(to_bottom,rgba(127,127,127,0.08)_1px,transparent_1px)] [background-size:32px_32px]"
+  >
+  </div>
+
+  <div
+    class="container relative mx-auto max-w-5xl px-4 pt-28 pb-12 md:pt-32 md:pb-16"
+  >
+    <nav aria-label="Breadcrumb" class="mb-6 text-sm text-muted-foreground">
+      <ol class="flex items-center gap-2">
+        <li>
+          <a class="hover:text-primary" href={localePath("/", locale)}
+            >{t("project.breadcrumbHome")}</a
+          >
+        </li>
+        <li aria-hidden="true">/</li>
+        <li>
+          <a class="hover:text-primary" href={localePath("/projects", locale)}
+            >{t("project.breadcrumbProjects")}</a
+          >
+        </li>
+        <li aria-hidden="true">/</li>
+        <li class="text-foreground truncate" aria-current="page">
+          {data.title}
+        </li>
+      </ol>
+    </nav>
+
+    <div class="flex flex-wrap items-center gap-3 mb-4">
+      <StatusBadge status={data.status} size="md" />
+      {
+        data.featured && (
+          <span class="text-xs font-semibold uppercase tracking-wider text-primary">
+            {t("common.featuredKicker")}
+          </span>
+        )
+      }
+    </div>
+
+    <h1 class="text-3xl md:text-5xl font-bold tracking-tight mb-4">
+      {data.title}
+    </h1>
+    <p class="text-lg text-muted-foreground max-w-3xl mb-6">{data.summary}</p>
+
+    <ul class="flex flex-wrap gap-2 mb-8" aria-label={t("project.stack")}>
+      {
+        data.technologies.map((tech) => (
+          <li class="rounded-md bg-primary/10 px-2.5 py-1 text-xs text-primary ring-1 ring-primary/20">
+            {tech}
+          </li>
+        ))
+      }
+    </ul>
+
+    <div class="flex flex-wrap gap-3">
+      {
+        data.liveUrl && (
+          <a
+            href={data.liveUrl}
+            target="_blank"
+            rel="noopener noreferrer"
+            class="inline-flex items-center gap-2 rounded-md bg-primary px-4 py-2 text-sm font-medium text-primary-foreground shadow-sm hover:bg-primary/90 transition-colors"
+          >
+            <span aria-hidden="true">↗</span> {t("common.demo")}
+          </a>
+        )
+      }
+      {
+        data.repoUrl && data.revealCode && (
+          <a
+            href={data.repoUrl}
+            target="_blank"
+            rel="noopener noreferrer"
+            class="inline-flex items-center gap-2 rounded-md border border-border bg-background px-4 py-2 text-sm font-medium hover:bg-accent/30 transition-colors"
+          >
+            <span aria-hidden="true">{"<>"}</span> {t("common.code")}
+          </a>
+        )
+      }
+      <a
+        href={localePath("/projects", locale)}
+        class="inline-flex items-center gap-2 rounded-md px-4 py-2 text-sm font-medium text-muted-foreground hover:text-foreground transition-colors"
+      >
+        {t("common.backToProjects")}
+      </a>
+    </div>
+  </div>
+
+  <div class="container mx-auto max-w-5xl px-4 pb-12">
+    <figure
+      class="overflow-hidden rounded-xl border border-border bg-card shadow-xl"
+    >
+      <img
+        src={data.coverImage}
+        alt={data.coverAlt}
+        class="w-full aspect-video object-cover"
+        loading="eager"
+        fetchpriority="high"
+        width="1280"
+        height="720"
+      />
+    </figure>
+  </div>
+</header>

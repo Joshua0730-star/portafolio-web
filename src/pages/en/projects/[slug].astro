@@ -1,0 +1,40 @@
+---
+import ProjectLayout from "../../../layouts/ProjectLayout.astro";
+import ProjectGallery from "../../../components/projects/ProjectGallery.astro";
+import {
+  getAllProjects,
+  getAdjacentProjects,
+  canonicalSlug,
+} from "../../../lib/projects";
+
+export async function getStaticPaths() {
+  // Build a page for every canonical slug; the localizer in lib/projects picks
+  // the EN variant when present and falls back to ES otherwise.
+  const all = await getAllProjects("en");
+  return all.map((project) => ({
+    params: { slug: canonicalSlug(project.slug) },
+    props: { project },
+  }));
+}
+
+const { project } = Astro.props;
+const isFallback = (project.data.lang ?? "es") !== "en";
+const { Content } = await project.render();
+const { prev, next } = await getAdjacentProjects(project.slug, "en");
+---
+
+<ProjectLayout project={project} prev={prev} next={next}>
+  {isFallback && (
+    <aside
+      role="note"
+      class="not-prose mb-8 rounded-lg border border-amber-500/30 bg-amber-500/10 px-4 py-3 text-sm text-amber-700 dark:text-amber-300"
+    >
+      The English translation of this project is not available yet. Showing the
+      Spanish version. Run <code>pnpm translate</code> to generate translations.
+    </aside>
+  )}
+  <Content />
+  {project.data.gallery && project.data.gallery.length > 2 && (
+    <ProjectGallery images={project.data.gallery} startIndex={2} />
+  )}
+</ProjectLayout>

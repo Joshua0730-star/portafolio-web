@@ -4,6 +4,12 @@ import profileImg from "../assets/profile-me.webp";
 import githubIcon from "../assets/icon-github.svg";
 import linkedinIcon from "../assets/icon-link.svg";
 import Actions from "./Actions.astro";
+import { useTranslations } from "../i18n/ui";
+import { DEFAULT_LOCALE } from "../i18n/config";
+import type { Locale } from "../i18n/config";
+
+const locale = (Astro.currentLocale ?? DEFAULT_LOCALE) as Locale;
+const t = useTranslations(locale);
 ---
 
 <section id="hero" class="pt-20 pb-16 px-4">
@@ -15,7 +21,7 @@ import Actions from "./Actions.astro";
       >
         <Image
           src={profileImg}
-          alt="Josué's profile photo"
+          alt={t("hero.profileAlt")}
           class="w-full h-full object-cover"
           width="128"
           height="128"
@@ -27,13 +33,13 @@ import Actions from "./Actions.astro";
         <h1
           class="text-4xl md:text-6xl font-bold text-balance max-w-xl mx-auto text-center"
         >
-          <span class="text-primary">Full-Stack</span> Developer
+          <span class="text-primary">{t("hero.kickerRole")}</span>
+          {t("hero.role")}
         </h1>
         <p
           class="text-xl md:text-2xl text-muted-foreground text-balance max-w-2xl mx-auto"
         >
-          Building modern web experiences with cutting-edge technologies.
-          Specialized in Astro, Node.js, and databases.
+          {t("hero.subtitle")}
         </p>
       </div>
 
@@ -78,7 +84,7 @@ import Actions from "./Actions.astro";
             ><rect width="20" height="16" x="2" y="4" rx="2"></rect><path
               d="m22 7-8.97 5.7a1.94 1.94 0 0 1-2.06 0L2 7"></path></svg
           >
-          Contact Me
+          {t("hero.contact")}
         </a>
         <Actions />
       </div>

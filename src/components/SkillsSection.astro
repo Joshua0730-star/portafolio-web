@@ -1,13 +1,28 @@
 ---
 import { skills, skillsPerSlide, totalSlides } from "../utils/details";
+import { useTranslations } from "../i18n/ui";
+import { DEFAULT_LOCALE } from "../i18n/config";
+import type { Locale } from "../i18n/config";
+
+const locale = (Astro.currentLocale ?? DEFAULT_LOCALE) as Locale;
+const t = useTranslations(locale);
+
+const levelLabel = (level: string): string =>
+  ({
+    Advanced: t("skills.level.advanced"),
+    Intermediate: t("skills.level.intermediate"),
+    Basic: t("skills.level.basic"),
+  })[level] ?? level;
 ---
 
 <section id="skills" class="py-20 bg-muted/30">
   <div class="container mx-auto px-4">
     <header class="text-center mb-16">
-      <h2 class="text-3xl font-bold text-foreground mb-4">Technical Skills</h2>
+      <h2 class="text-3xl font-bold text-foreground mb-4">
+        {t("skills.title")}
+      </h2>
       <p class="text-lg text-muted-foreground max-w-2xl mx-auto">
-        Technologies and tools I master to create complete web solutions
+        {t("skills.subtitle")}
       </p>
     </header>
 
@@ -39,7 +54,7 @@ import { skills, skillsPerSlide, totalSlides } from "../utils/details";
                 },
               ]}
             >
-              {skill.level}
+              {levelLabel(skill.level)}
             </span>
           </div>
         ))
@@ -60,7 +75,7 @@ import { skills, skillsPerSlide, totalSlides } from "../utils/details";
                 // los skills que se van a mostrar por slide
                 // en cada iteracion se extraen de 4 en 4 skills de objetos
                 slideIndex * skillsPerSlide, // <-- ej: 0: 0 * 4 = 0;
-                (slideIndex + 1) * skillsPerSlide // <--- ej: (0 + 1 = 1) * 4 = 4 entonces el pedazo de array sera (0, 4)
+                (slideIndex + 1) * skillsPerSlide, // <--- ej: (0 + 1 = 1) * 4 = 4 entonces el pedazo de array sera (0, 4)
               );
               return (
                 // lo que renderizo es en el return
@@ -87,7 +102,7 @@ import { skills, skillsPerSlide, totalSlides } from "../utils/details";
                             },
                           ]}
                         >
-                          {skill.level}
+                          {levelLabel(skill.level)}
                         </span>
                       </div>
                     ))}
@@ -113,7 +128,7 @@ import { skills, skillsPerSlide, totalSlides } from "../utils/details";
   </div>
 </section>
 
-<script define:vars={{ totalSlides }}>
+<script is:inline define:vars={{ totalSlides }}>
   //En Astro, define:vars expone variables del frontmatter (totalSlides) dentro del script.
 
   // Así, totalSlides ya está disponible en el JS del navegador (valor dinámico calculado en el servidor/render).

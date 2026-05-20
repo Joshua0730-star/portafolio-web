@@ -7,21 +7,63 @@ import ExperienceSection from "../components/ExperienceSection.astro";
 import ProjectsSection from "../components/ProjectsSection.astro";
 import LearningSection from "../components/LearningSection.astro";
 import ContactSection from "../components/ContactSection.astro";
+import { SITE } from "../lib/site";
+
+const websiteJsonLd = {
+  "@context": "https://schema.org",
+  "@type": "WebSite",
+  name: SITE.name,
+  url: SITE.url,
+  inLanguage: SITE.locale,
+  author: {
+    "@type": "Person",
+    name: SITE.author.name,
+    url: SITE.author.url,
+  },
+};
+
+const professionalJsonLd = {
+  "@context": "https://schema.org",
+  "@type": "ProfilePage",
+  mainEntity: {
+    "@type": "Person",
+    name: SITE.author.name,
+    alternateName: SITE.author.alternateName,
+    jobTitle: SITE.author.jobTitle,
+    url: SITE.author.url,
+    sameAs: SITE.author.sameAs,
+    knowsAbout: SITE.author.knowsAbout,
+    description: SITE.description,
+  },
+};
 ---
 
-<Layout title="Professional Portfolio">
+<Layout
+  title="Portfolio"
+  description={SITE.description}
+  type="profile"
+  keywords={[
+    "software architect",
+    "full-stack developer",
+    "ai engineer",
+    "human in the loop",
+    "typescript",
+    "node.js",
+    "react",
+    "astro",
+    "event-driven",
+  ]}
+  jsonLd={[websiteJsonLd, professionalJsonLd]}
+>
   <div class="min-h-screen bg-background">
     <Header />
-    <main>
+    <main id="main" tabindex="-1">
       <HeroSection />
       <ExperienceSection />
       <ProjectsSection />
       <SkillsSection />
-
       <LearningSection />
       <ContactSection />
     </main>
   </div>
 </Layout>
-
-<style></style>

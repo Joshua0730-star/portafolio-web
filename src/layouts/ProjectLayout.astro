@@ -1,0 +1,70 @@
+---
+import BaseLayout from "./BaseLayout.astro";
+import Header from "../components/Header.astro";
+import ProjectHero from "../components/projects/ProjectHero.astro";
+import ProjectNav from "../components/projects/ProjectNav.astro";
+import type { Project } from "../lib/projects";
+import { SITE } from "../lib/site";
+
+interface Props {
+  project: Project;
+  prev: Project | null;
+  next: Project | null;
+}
+const { project, prev, next } = Astro.props;
+const { data } = project;
+
+const canonical = new URL(
+  `/projects/${project.slug}`,
+  SITE.url,
+).toString();
+
+const creativeWork = {
+  "@context": "https://schema.org",
+  "@type": "CreativeWork",
+  name: data.title,
+  headline: data.title,
+  description: data.summary,
+  url: canonical,
+  image: new URL(data.coverImage, SITE.url).toString(),
+  dateCreated: data.publishedDate.toISOString(),
+  datePublished: data.publishedDate.toISOString(),
+  inLanguage: "es",
+  keywords: [...data.technologies, ...data.keywords].join(", "),
+  author: {
+    "@type": "Person",
+    name: SITE.author.name,
+    url: SITE.author.url,
+  },
+  creator: {
+    "@type": "Person",
+    name: SITE.author.name,
+    url: SITE.author.url,
+  },
+  isAccessibleForFree: true,
+  ...(data.liveUrl ? { sameAs: [data.liveUrl] } : {}),
+};
+---
+
+<BaseLayout
+  title={data.title}
+  description={data.summary}
+  ogImage={data.coverImage}
+  canonical={canonical}
+  type="article"
+  keywords={[...data.technologies, ...data.keywords]}
+  jsonLd={creativeWork}
+>
+  <Header />
+  <main id="main" tabindex="-1">
+    <ProjectHero project={project} />
+    <div class="container mx-auto max-w-3xl px-4 py-10">
+      <article
+        class="prose prose-slate dark:prose-invert max-w-none prose-headings:scroll-mt-24 prose-h2:text-2xl prose-h2:mt-12 prose-h2:border-b prose-h2:border-border prose-h2:pb-2 prose-img:rounded-lg prose-img:border prose-img:border-border prose-a:text-primary prose-strong:text-foreground"
+      >
+        <slot />
+      </article>
+      <ProjectNav prev={prev} next={next} />
+    </div>
+  </main>
+</BaseLayout>

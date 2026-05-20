@@ -1,0 +1,29 @@
+---
+import { statusLabel, statusTone } from "../../lib/projects";
+import type { Locale } from "../../i18n/config";
+import { DEFAULT_LOCALE } from "../../i18n/config";
+
+interface Props {
+  status:
+    | "production"
+    | "beta"
+    | "private"
+    | "self-hosted"
+    | "wip";
+  size?: "sm" | "md";
+}
+const { status, size = "sm" } = Astro.props;
+const locale = (Astro.currentLocale as Locale) ?? DEFAULT_LOCALE;
+const sizeCls = size === "sm" ? "text-xs px-2 py-0.5" : "text-sm px-3 py-1";
+const label = statusLabel(status, locale);
+---
+
+<span
+  class={`inline-flex items-center gap-1.5 rounded-full ring-1 font-medium ${statusTone(status)} ${sizeCls}`}
+  aria-label={`${label}`}
+>
+  <span
+    aria-hidden="true"
+    class="inline-block w-1.5 h-1.5 rounded-full bg-current"></span>
+  {label}
+</span>

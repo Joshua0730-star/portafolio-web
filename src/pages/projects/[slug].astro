@@ -1,0 +1,24 @@
+---
+import ProjectLayout from "../../layouts/ProjectLayout.astro";
+import ProjectGallery from "../../components/projects/ProjectGallery.astro";
+import { getAllProjects, getAdjacentProjects } from "../../lib/projects";
+
+export async function getStaticPaths() {
+  const all = await getAllProjects();
+  return all.map((project) => ({
+    params: { slug: project.slug },
+    props: { project },
+  }));
+}
+
+const { project } = Astro.props;
+const { Content } = await project.render();
+const { prev, next } = await getAdjacentProjects(project.slug);
+---
+
+<ProjectLayout project={project} prev={prev} next={next}>
+  <Content />
+  {project.data.gallery && project.data.gallery.length > 2 && (
+    <ProjectGallery images={project.data.gallery} startIndex={2} />
+  )}
+</ProjectLayout>

@@ -1,0 +1,231 @@
+---
+import ToolCard from "./ToolCard.astro";
+import { useTranslations } from "../../i18n/ui";
+import { localePath, DEFAULT_LOCALE } from "../../i18n/config";
+import type { Locale } from "../../i18n/config";
+
+interface Props {
+  lang?: Locale;
+}
+const { lang } = Astro.props;
+const locale = (lang ?? Astro.currentLocale ?? DEFAULT_LOCALE) as Locale;
+const t = useTranslations(locale);
+
+const copy = {
+  es: {
+    intro:
+      "La IA es la mejor amplificadora de un buen ingeniero —y la peor excusa para uno mediocre. Mi forma de trabajar parte del estándar",
+    introBold: "Human-In-The-Loop",
+    introTail:
+      ": yo soy el arquitecto, calculo costos, elijo protocolos, modelos y tecnologías; la IA ejecuta bajo guardarraíles que yo defino.",
+    philosophyTitle: "Filosofía: por qué Human-In-The-Loop",
+    philosophy1:
+      "La IA generativa cambió cómo se escribe código, pero no cambió quién es <em>responsable</em> del software que llega a producción. En cada proyecto que entrego, mi rol es el de arquitecto y revisor crítico: decido qué construir, cómo dividirlo, qué patrones aplicar y qué riesgos asumir. La IA es palanca, no piloto automático.",
+    philosophy2:
+      "Trabajar con IA bien significa <strong>hacer trade-offs explícitos</strong>: ¿uso un modelo grande y caro para esta tarea o uno pequeño y rápido? ¿paralelizo agentes o serializo para mantener coherencia? ¿qué context window necesito realmente? Estas preguntas no se delegan; se responden con criterio técnico y se documentan.",
+    roleTitle: "Mi rol como arquitecto de software",
+    roles: [
+      ["Modelado del dominio", "Antes de cualquier código, defino las entidades, las relaciones y los invariantes del negocio. Sin esto, ninguna IA puede generar algo que no tenga que tirar a la basura."],
+      ["Cálculo de costos", "Estimo costo por petición, costo por feature y costo de infraestructura. La pregunta \"¿cuánto cuesta esto al mes con 10× usuarios?\" se responde antes de codificar."],
+      ["Protocolos & contratos", "Defino esquemas de eventos, contratos de API y políticas de idempotencia. Los servicios se hablan por contratos, no por accidentes."],
+      ["Selección de tecnología", "Elijo stack por adecuación al problema, ecosistema y costo de mantenimiento —no por hype. Las decisiones quedan documentadas en el design doc."],
+    ],
+    toolsTitle: "Herramientas que uso día a día",
+    toolsSubtitle:
+      "Selecciono el agente y el modelo correcto para cada tarea. Ningún proveedor es dueño de todo mi flujo: rotación deliberada según costo, calidad y latencia.",
+    editorLabel: "Editor",
+    agentLabel: "Agentes de IA",
+    methodsTitle: "Metodologías & estándares",
+    methodsSubtitle:
+      "Lo que hace que un flujo con IA sea fiable no es la IA, son los guardarraíles. Estos son los míos.",
+    flowTitle: "Un flujo real, de principio a fin",
+    flow: [
+      ["01 · DISCOVERY", "Entiendo el problema (sin IA)", "Hablo con el cliente o el dominio, escribo el problema en mis propias palabras, identifico restricciones reales (presupuesto, stack existente, plazos)."],
+      ["02 · PROPOSAL & SPEC", "Defino qué se construye (con IA como sparring)", "Uso SDD: redacto proposal, specs con escenarios y un design doc corto con las decisiones técnicas y trade-offs. La IA reta mis decisiones; yo decido."],
+      ["03 · COST & MODEL SELECTION", "Calculo costo y elijo modelos", "Defino qué tareas justifican un modelo grande y cuáles uno barato. Documento estimaciones por mes y por feature."],
+      ["04 · IMPLEMENTATION", "Implementación con agentes bajo guardarraíles", "Tareas del backlog se ejecutan con agentes (Claude Code para multitarea, Codex para refactor puntual). Cada cambio entra a un branch con tests."],
+      ["05 · HUMAN REVIEW", "Code review humano antes de merge", "Reviso cada PR como si lo hubiera escrito un junior brillante: leo todo, cuestiono decisiones, verifico tests y mido impacto en performance."],
+      ["06 · OBSERVABILITY", "Mido en producción", "Logs estructurados, métricas, alertas y tracking de costo real de IA por feature. Lo que no se mide, no se mejora."],
+    ],
+  },
+  en: {
+    intro:
+      "AI is the best amplifier for a good engineer — and the worst excuse for a mediocre one. My approach starts from the",
+    introBold: "Human-In-The-Loop",
+    introTail:
+      " standard: I am the architect, I run the cost math, I pick protocols, models and technologies; AI executes within the guardrails I define.",
+    philosophyTitle: "Philosophy: why Human-In-The-Loop",
+    philosophy1:
+      "Generative AI changed how code gets written, but not who is <em>responsible</em> for the software that reaches production. On every project I ship, my role is that of architect and critical reviewer: I decide what to build, how to split it, which patterns apply and which risks to take. AI is a lever, not autopilot.",
+    philosophy2:
+      "Working well with AI means <strong>making explicit trade-offs</strong>: do I use a large expensive model for this task or a small fast one? Do I parallelize agents or serialize for coherence? What context window do I actually need? These questions are not delegated; they are answered with technical judgment and documented.",
+    roleTitle: "My role as a software architect",
+    roles: [
+      ["Domain modeling", "Before any code, I define entities, relationships and business invariants. Without this, no AI can generate something that won't have to be thrown away."],
+      ["Cost calculation", "I estimate cost per request, per feature and infrastructure cost. The question \"how much does this cost monthly at 10× users?\" gets answered before coding."],
+      ["Protocols & contracts", "I define event schemas, API contracts and idempotency policies. Services talk through contracts, not accidents."],
+      ["Tech selection", "I pick a stack based on fit, ecosystem and maintenance cost — not hype. Decisions live in the design doc."],
+    ],
+    toolsTitle: "Tools I use day-to-day",
+    toolsSubtitle:
+      "I select the right agent and model for each task. No vendor owns my entire flow: deliberate rotation by cost, quality and latency.",
+    editorLabel: "Editor",
+    agentLabel: "AI agents",
+    methodsTitle: "Methodologies & standards",
+    methodsSubtitle:
+      "What makes an AI workflow reliable is not the AI, it's the guardrails. These are mine.",
+    flowTitle: "A real flow, from start to finish",
+    flow: [
+      ["01 · DISCOVERY", "Understand the problem (no AI)", "I talk to the client or the domain, write the problem in my own words, identify real constraints (budget, existing stack, deadlines)."],
+      ["02 · PROPOSAL & SPEC", "Define what gets built (AI as sparring partner)", "I use SDD: proposal, specs with scenarios, and a short design doc with the technical decisions and trade-offs. AI challenges my decisions; I decide."],
+      ["03 · COST & MODEL SELECTION", "Run the cost math, pick models", "I define which tasks justify a big model and which a cheap one. I document estimates per month and per feature."],
+      ["04 · IMPLEMENTATION", "Implementation with agents under guardrails", "Backlog tasks run on agents (Claude Code for multitasking, Codex for targeted refactor). Every change goes through a branch with tests."],
+      ["05 · HUMAN REVIEW", "Human code review before merge", "I review every PR as if a brilliant junior wrote it: read everything, question decisions, verify tests, measure performance impact."],
+      ["06 · OBSERVABILITY", "Measure in production", "Structured logs, metrics, alerts and tracking of real AI cost per feature. What you don't measure, you don't improve."],
+    ],
+  },
+}[locale];
+
+const editors = [
+  locale === "es"
+    ? { name: "Windsurf", role: "Editor principal", description: "IDE agentic donde vivo el día a día. Lo uso por su integración profunda con flujos agenticos, MCP y skills personalizados." }
+    : { name: "Windsurf", role: "Primary editor", description: "Agentic IDE I live in day to day. I use it for its deep integration with agentic flows, MCP and custom skills." },
+];
+
+const agents = locale === "es" ? [
+  { name: "Claude Code", role: "Multitarea & calidad de sistemas", description: "Mi agente de cabecera para tareas largas, refactors estructurales y razonar sobre arquitecturas completas sin perder contexto." },
+  { name: "Codex", role: "Resolución de bugs & refactor", description: "Para problemas localizados y refactorings precisos. Lo elijo cuando necesito iteración rápida sobre un archivo o módulo concreto." },
+  { name: "Gemini", role: "Ideación & generación de imágenes", description: "Para brainstorming inicial, generación de imágenes y exploración visual cuando un proyecto necesita assets temáticos." },
+] : [
+  { name: "Claude Code", role: "Multitasking & system quality", description: "My go-to agent for long tasks, structural refactors and reasoning about whole architectures without losing context." },
+  { name: "Codex", role: "Bug fixing & refactor", description: "For localized problems and precise refactorings. I pick it when I need fast iteration on a single file or module." },
+  { name: "Gemini", role: "Ideation & image generation", description: "For early brainstorming, image generation and visual exploration when a project needs thematic assets." },
+];
+
+const methods = locale === "es" ? [
+  { name: "Human-In-The-Loop", role: "Estándar transversal", description: "La IA acelera; yo decido. Cada decisión arquitectónica, costo, modelo y trade-off pasa por mi revisión antes de aterrizar en código de producción." },
+  { name: "MCP (Model Context Protocol)", role: "Integración con herramientas", description: "Conecto modelos con bases de datos, deploys y servicios externos vía MCP en vez de hacks ad-hoc: contratos claros, auditable y reusable." },
+  { name: "SDD (Spec-Driven Development)", role: "Disciplina de planificación", description: "Toda feature relevante empieza con proposal → spec → design → tasks. Esto me permite delegar implementación a agentes con guardarraíles." },
+  { name: "TDD", role: "Pruebas primero donde importa", description: "Tests antes que código en lógica de negocio crítica (pagos, inventario, autenticación). Acelera la iteración con IA en lugar de frenarla." },
+  { name: "Code Review humano", role: "Punto de control no negociable", description: "Ningún PR generado por IA mergea sin revisión humana. La IA no es responsable; yo sí lo soy." },
+  { name: "Eventos & concurrencia", role: "Estándar de diseño", description: "Diseño sistemas orientados a eventos, asíncronos y paralelos por defecto. Reduce latencia y desacopla subsistemas que crecen a ritmos distintos." },
+  { name: "Skills", role: "Conocimiento reusable", description: "Encapsulo patrones recurrentes (postgres, accessibility, frontend design) como skills que mis agentes invocan bajo demanda." },
+  { name: "Selección por tarea", role: "Modelo correcto para cada caso", description: "Cada tarea elige el modelo que mejor la resuelve por relación calidad/costo/latencia. No hay un único modelo dueño de todo." },
+] : [
+  { name: "Human-In-The-Loop", role: "Cross-cutting standard", description: "AI accelerates; I decide. Every architectural decision, cost, model and trade-off goes through my review before landing in production." },
+  { name: "MCP (Model Context Protocol)", role: "Tool integration", description: "I connect models with databases, deploys and external services via MCP rather than ad-hoc hacks: clear contracts, auditable, reusable." },
+  { name: "SDD (Spec-Driven Development)", role: "Planning discipline", description: "Every relevant feature starts with proposal → spec → design → tasks. This lets me delegate implementation to agents with guardrails." },
+  { name: "TDD", role: "Tests first where it matters", description: "Tests before code in critical business logic (payments, inventory, auth). Speeds up iteration with AI instead of slowing it down." },
+  { name: "Human code review", role: "Non-negotiable checkpoint", description: "No AI-generated PR merges without human review. AI is not responsible; I am." },
+  { name: "Events & concurrency", role: "Design default", description: "I design event-driven, async and parallel-by-default systems. Reduces latency and decouples subsystems that grow at different rates." },
+  { name: "Skills", role: "Reusable knowledge", description: "I encapsulate recurring patterns (postgres, accessibility, frontend design) as skills my agents invoke on demand." },
+  { name: "Per-task selection", role: "Right model for each case", description: "Each task picks the model that solves it best by quality/cost/latency. No single model owns everything." },
+];
+---
+
+<!-- HERO -->
+<section class="relative border-b border-border bg-gradient-to-b from-primary/5 to-background">
+  <div
+    aria-hidden="true"
+    class="pointer-events-none absolute inset-0 [background-image:linear-gradient(to_right,rgba(127,127,127,0.08)_1px,transparent_1px),linear-gradient(to_bottom,rgba(127,127,127,0.08)_1px,transparent_1px)] [background-size:32px_32px]"
+  ></div>
+  <div class="container relative mx-auto max-w-4xl px-4 pt-28 pb-14 md:pt-32 md:pb-20">
+    <p class="text-sm font-mono text-primary mb-3">{t("ai.kicker")}</p>
+    <h1 class="text-3xl md:text-5xl font-bold tracking-tight mb-5">{t("ai.title")}</h1>
+    <p class="text-xl text-muted-foreground max-w-3xl leading-relaxed">
+      {copy.intro}
+      <strong class="text-foreground">{copy.introBold}</strong>{copy.introTail}
+    </p>
+    <div class="mt-8 inline-flex items-center gap-2 rounded-full border border-primary/30 bg-primary/10 px-4 py-2 text-sm">
+      <span aria-hidden="true" class="inline-block w-2 h-2 rounded-full bg-primary animate-pulse"></span>
+      <span class="font-medium">{t("ai.tagline")}</span>
+    </div>
+  </div>
+</section>
+
+<!-- PHILOSOPHY -->
+<section class="container mx-auto max-w-3xl px-4 py-14" aria-labelledby="philosophy">
+  <h2 id="philosophy" class="text-2xl md:text-3xl font-bold mb-4">{copy.philosophyTitle}</h2>
+  <div class="prose prose-slate dark:prose-invert max-w-none prose-strong:text-foreground prose-a:text-primary">
+    <p set:html={copy.philosophy1} />
+    <p set:html={copy.philosophy2} />
+  </div>
+</section>
+
+<!-- ROLE -->
+<section class="border-y border-border bg-card/40" aria-labelledby="role">
+  <div class="container mx-auto max-w-5xl px-4 py-14">
+    <h2 id="role" class="text-2xl md:text-3xl font-bold mb-8">{copy.roleTitle}</h2>
+    <ul role="list" class="grid gap-5 md:grid-cols-2">
+      {copy.roles.map(([title, desc]) => (
+        <li class="rounded-xl border border-border bg-background p-5">
+          <h3 class="font-semibold mb-2">{title}</h3>
+          <p class="text-sm text-muted-foreground">{desc}</p>
+        </li>
+      ))}
+    </ul>
+  </div>
+</section>
+
+<!-- TOOLS -->
+<section class="container mx-auto max-w-5xl px-4 py-14" aria-labelledby="tools">
+  <h2 id="tools" class="text-2xl md:text-3xl font-bold mb-2">{copy.toolsTitle}</h2>
+  <p class="text-muted-foreground mb-8 max-w-2xl">{copy.toolsSubtitle}</p>
+
+  <h3 class="text-sm uppercase tracking-wider text-muted-foreground mb-3">{copy.editorLabel}</h3>
+  <div class="grid gap-4 sm:grid-cols-2 lg:grid-cols-3 mb-10">
+    {editors.map((tool) => <ToolCard {...tool} category="editor" />)}
+  </div>
+
+  <h3 class="text-sm uppercase tracking-wider text-muted-foreground mb-3">{copy.agentLabel}</h3>
+  <div class="grid gap-4 sm:grid-cols-2 lg:grid-cols-3">
+    {agents.map((tool) => <ToolCard {...tool} category="agent" />)}
+  </div>
+</section>
+
+<!-- METHODS -->
+<section class="border-y border-border bg-card/40" aria-labelledby="methods">
+  <div class="container mx-auto max-w-5xl px-4 py-14">
+    <h2 id="methods" class="text-2xl md:text-3xl font-bold mb-2">{copy.methodsTitle}</h2>
+    <p class="text-muted-foreground mb-8 max-w-2xl">{copy.methodsSubtitle}</p>
+    <div class="grid gap-4 sm:grid-cols-2 lg:grid-cols-3">
+      {methods.map((tool) => <ToolCard {...tool} category="method" />)}
+    </div>
+  </div>
+</section>
+
+<!-- FLOW -->
+<section class="container mx-auto max-w-3xl px-4 py-14" aria-labelledby="flow">
+  <h2 id="flow" class="text-2xl md:text-3xl font-bold mb-6">{copy.flowTitle}</h2>
+  <ol class="space-y-6">
+    {copy.flow.map(([kicker, title, desc]) => (
+      <li class="rounded-xl border border-border bg-background p-5">
+        <div class="text-xs font-mono text-primary mb-1">{kicker}</div>
+        <h3 class="font-semibold mb-1">{title}</h3>
+        <p class="text-sm text-muted-foreground">{desc}</p>
+      </li>
+    ))}
+  </ol>
+</section>
+
+<!-- CTA -->
+<section class="border-t border-border bg-gradient-to-b from-background to-primary/5">
+  <div class="container mx-auto max-w-3xl px-4 py-16 text-center">
+    <h2 class="text-2xl md:text-3xl font-bold mb-4">{t("ai.cta.title")}</h2>
+    <p class="text-muted-foreground mb-8 max-w-xl mx-auto">{t("ai.cta.subtitle")}</p>
+    <div class="flex flex-wrap justify-center gap-3">
+      <a
+        href={localePath("/#contact", locale)}
+        class="inline-flex items-center gap-2 rounded-md bg-primary px-5 py-2.5 text-sm font-medium text-primary-foreground hover:bg-primary/90 transition-colors"
+      >
+        {t("ai.cta.contact")}
+      </a>
+      <a
+        href={localePath("/projects", locale)}
+        class="inline-flex items-center gap-2 rounded-md border border-border bg-background px-5 py-2.5 text-sm font-medium hover:bg-accent/30 transition-colors"
+      >
+        {t("ai.cta.viewProjects")}
+      </a>
+    </div>
+  </div>
+</section>

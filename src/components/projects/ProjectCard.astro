@@ -1,0 +1,85 @@
+---
+import type { Project } from "../../lib/projects";
+import { canonicalSlug } from "../../lib/projects";
+import StatusBadge from "./StatusBadge.astro";
+import { useTranslations } from "../../i18n/ui";
+import { localePath, DEFAULT_LOCALE } from "../../i18n/config";
+import type { Locale } from "../../i18n/config";
+
+interface Props {
+  project: Project;
+  priority?: boolean;
+}
+const { project, priority = false } = Astro.props;
+const { data } = project;
+const locale = (Astro.currentLocale ?? DEFAULT_LOCALE) as Locale;
+const t = useTranslations(locale);
+const href = localePath(`/projects/${canonicalSlug(project.slug)}`, locale);
+---
+
+<article
+  class="group relative flex flex-col overflow-hidden rounded-xl border border-border bg-card transition-all duration-300 hover:-translate-y-1 hover:border-primary/40 hover:shadow-xl"
+>
+  <a
+    href={href}
+    class="absolute inset-0 z-10"
+    aria-label={`${t("common.viewDetail")}: ${data.title}`}></a>
+
+  <div class="aspect-video overflow-hidden bg-muted">
+    <img
+      src={data.coverImage}
+      alt={data.coverAlt}
+      class="h-full w-full object-cover transition-transform duration-500 group-hover:scale-105"
+      loading={priority ? "eager" : "lazy"}
+      fetchpriority={priority ? "high" : "auto"}
+      width="800"
+      height="450"
+    />
+  </div>
+
+  <div class="flex flex-1 flex-col gap-3 p-5">
+    <div class="flex items-center justify-between gap-2">
+      <StatusBadge status={data.status} />
+      {
+        data.featured && (
+          <span class="text-[10px] uppercase tracking-wider text-primary/80 font-semibold">
+            {t("common.featured")}
+          </span>
+        )
+      }
+    </div>
+    <h3
+      class="text-lg font-semibold text-card-foreground group-hover:text-primary transition-colors"
+    >
+      {data.title}
+    </h3>
+    <p class="text-sm text-muted-foreground line-clamp-3 flex-1">
+      {data.summary}
+    </p>
+    <ul class="flex flex-wrap gap-1.5 mt-1" aria-label={t("project.tech")}>
+      {
+        data.technologies.slice(0, 5).map((tech) => (
+          <li class="rounded-md bg-primary/10 px-2 py-0.5 text-[11px] text-primary">
+            {tech}
+          </li>
+        ))
+      }
+      {
+        data.technologies.length > 5 && (
+          <li class="rounded-md bg-muted px-2 py-0.5 text-[11px] text-muted-foreground">
+            +{data.technologies.length - 5}
+          </li>
+        )
+      }
+    </ul>
+    <span
+      class="mt-2 inline-flex items-center gap-1 text-sm font-medium text-primary"
+    >
+      {t("common.viewDetail")}
+      <span
+        aria-hidden="true"
+        class="transition-transform group-hover:translate-x-1">→</span
+      >
+    </span>
+  </div>
+</article>

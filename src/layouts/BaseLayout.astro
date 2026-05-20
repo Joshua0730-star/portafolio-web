@@ -1,0 +1,160 @@
+---
+import "../styles/global.css";
+import "@fontsource-variable/inter";
+import "@fontsource-variable/geist";
+import "@fontsource-variable/geist-mono";
+import "@fontsource/geist-sans/400.css";
+import "@fontsource/geist-sans/500.css";
+import "@fontsource/geist-sans/600.css";
+import "@fontsource/geist-sans/700.css";
+import "@fontsource/geist-sans/800.css";
+
+import { ClientRouter } from "astro:transitions";
+
+import SEO from "../components/seo/SEO.astro";
+import JsonLd from "../components/seo/JsonLd.astro";
+import { SITE } from "../lib/site";
+import { useTranslations } from "../i18n/ui";
+import type { Locale } from "../i18n/config";
+import {
+  DEFAULT_LOCALE,
+  LOCALES,
+  localePath,
+  stripLocale,
+} from "../i18n/config";
+
+interface Props {
+  title: string;
+  description?: string;
+  ogImage?: string;
+  canonical?: string;
+  type?: "website" | "article" | "profile";
+  noindex?: boolean;
+  keywords?: string[];
+  lang?: string;
+  jsonLd?: Record<string, unknown> | Record<string, unknown>[];
+}
+
+const {
+  title,
+  description,
+  ogImage,
+  canonical,
+  type,
+  noindex,
+  keywords,
+  lang,
+  jsonLd,
+} = Astro.props;
+
+const locale = (lang ?? Astro.currentLocale ?? DEFAULT_LOCALE) as Locale;
+const t = useTranslations(locale);
+
+const canonicalPath = stripLocale(Astro.url.pathname);
+const alternates = LOCALES.map((l) => ({
+  hreflang: l === "es" ? "es-CO" : "en-US",
+  href: new URL(
+    localePath(canonicalPath, l),
+    Astro.site ?? Astro.url,
+  ).toString(),
+}));
+const xDefaultHref = new URL(
+  localePath(canonicalPath, DEFAULT_LOCALE),
+  Astro.site ?? Astro.url,
+).toString();
+
+const personJsonLd = {
+  "@context": "https://schema.org",
+  "@type": "Person",
+  name: SITE.author.name,
+  alternateName: SITE.author.alternateName,
+  jobTitle: SITE.author.jobTitle,
+  url: SITE.author.url,
+  sameAs: SITE.author.sameAs,
+  knowsAbout: SITE.author.knowsAbout,
+};
+---
+
+<!doctype html>
+<html lang={locale}>
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <meta name="generator" content={Astro.generator} />
+    <meta name="theme-color" content="#2563eb" />
+    <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+    <link rel="alternate icon" href="/favicon.ico" />
+
+    {/* hreflang alternates for international SEO */}
+    {
+      alternates.map((a) => (
+        <link rel="alternate" hreflang={a.hreflang} href={a.href} />
+      ))
+    }
+    <link rel="alternate" hreflang="x-default" href={xDefaultHref} />
+
+    {/* Anti-flash dark-mode init: must run BEFORE the body paints */}
+    <script is:inline>
+      (function () {
+        try {
+          const stored = localStorage.getItem("theme");
+          const prefersDark = window.matchMedia(
+            "(prefers-color-scheme: dark)",
+          ).matches;
+          const theme = stored ?? (prefersDark ? "dark" : "light");
+          if (theme === "dark") document.documentElement.classList.add("dark");
+        } catch (_) {}
+      })();
+    </script>
+
+    <SEO
+      title={title}
+      description={description}
+      ogImage={ogImage}
+      canonical={canonical}
+      type={type}
+      noindex={noindex}
+      keywords={keywords}
+    />
+    <JsonLd data={personJsonLd} />
+    {jsonLd && <JsonLd data={jsonLd} />}
+
+    <ClientRouter />
+  </head>
+  <body class="bg-background text-foreground antialiased">
+    <a
+      href="#main"
+      class="sr-only focus:not-sr-only focus:absolute focus:top-3 focus:left-3 focus:z-[100] focus:bg-primary focus:text-primary-foreground focus:px-4 focus:py-2 focus:rounded-md focus:shadow-lg"
+    >
+      {t("common.skipToMain")}
+    </a>
+    <slot />
+  </body>
+</html>
+
+<style is:global>
+  html,
+  body {
+    margin: 0;
+    width: 100%;
+    font-family:
+      "Geist Sans",
+      "Geist Variable",
+      "Inter Variable",
+      system-ui,
+      -apple-system,
+      BlinkMacSystemFont,
+      "Segoe UI",
+      Roboto,
+      sans-serif;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+  }
+  :focus-visible {
+    outline: 2px solid var(--ring);
+    outline-offset: 2px;
+  }
+  html {
+    scroll-behavior: smooth;
+  }
+</style>

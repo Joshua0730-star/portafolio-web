@@ -1,0 +1,76 @@
+---
+import Layout from "../../layouts/Layout.astro";
+import Header from "../../components/Header.astro";
+import ProjectCard from "../../components/projects/ProjectCard.astro";
+import {
+  getAllProjects,
+  getFeaturedProjects,
+  getOtherProjects,
+} from "../../lib/projects";
+import { useTranslations } from "../../i18n/ui";
+import { DEFAULT_LOCALE } from "../../i18n/config";
+import type { Locale } from "../../i18n/config";
+
+const locale = (Astro.currentLocale ?? DEFAULT_LOCALE) as Locale;
+const t = useTranslations(locale);
+
+const featured = await getFeaturedProjects(locale, 4);
+const others = await getOtherProjects(locale);
+const all = await getAllProjects(locale);
+---
+
+<Layout
+  title={t("projects.title")}
+  description={t("projects.subtitle")}
+  type="website"
+  keywords={["portfolio", "software architect", "full-stack projects", "case studies"]}
+>
+  <Header />
+  <main id="main" tabindex="-1">
+    <section class="relative border-b border-border bg-gradient-to-b from-primary/5 to-background">
+      <div
+        aria-hidden="true"
+        class="pointer-events-none absolute inset-0 [background-image:linear-gradient(to_right,rgba(127,127,127,0.08)_1px,transparent_1px),linear-gradient(to_bottom,rgba(127,127,127,0.08)_1px,transparent_1px)] [background-size:32px_32px]"
+      ></div>
+      <div class="container relative mx-auto max-w-6xl px-4 pt-28 pb-12 md:pt-32 md:pb-16">
+        <p class="text-sm font-mono text-primary mb-3">{t("projects.kicker")}</p>
+        <h1 class="text-3xl md:text-5xl font-bold tracking-tight mb-4">
+          {t("projects.title")}
+        </h1>
+        <p class="text-lg text-muted-foreground max-w-3xl">{t("projects.subtitle")}</p>
+        <dl class="mt-8 grid grid-cols-3 gap-4 max-w-md">
+          <div>
+            <dt class="text-xs uppercase tracking-wider text-muted-foreground">{t("projects.statsTotal")}</dt>
+            <dd class="text-2xl font-bold">{all.length}</dd>
+          </div>
+          <div>
+            <dt class="text-xs uppercase tracking-wider text-muted-foreground">{t("projects.statsFeatured")}</dt>
+            <dd class="text-2xl font-bold">{featured.length}</dd>
+          </div>
+          <div>
+            <dt class="text-xs uppercase tracking-wider text-muted-foreground">{t("projects.statsProduction")}</dt>
+            <dd class="text-2xl font-bold">
+              {all.filter((p) => p.data.status === "production").length}
+            </dd>
+          </div>
+        </dl>
+      </div>
+    </section>
+
+    <section class="container mx-auto max-w-6xl px-4 py-12" aria-labelledby="featured-heading">
+      <h2 id="featured-heading" class="text-2xl font-bold mb-6">{t("projects.featuredHeading")}</h2>
+      <div class="grid gap-6 sm:grid-cols-2 lg:grid-cols-2">
+        {featured.map((p, i) => <ProjectCard project={p} priority={i < 2} />)}
+      </div>
+    </section>
+
+    {others.length > 0 && (
+      <section class="container mx-auto max-w-6xl px-4 py-12" aria-labelledby="other-heading">
+        <h2 id="other-heading" class="text-2xl font-bold mb-6">{t("projects.otherHeading")}</h2>
+        <div class="grid gap-6 sm:grid-cols-2 lg:grid-cols-3">
+          {others.map((p) => <ProjectCard project={p} />)}
+        </div>
+      </section>
+    )}
+  </main>
+</Layout>

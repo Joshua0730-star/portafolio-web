@@ -6,9 +6,13 @@
     "dev": "astro dev",
     "build": "astro build",
     "preview": "astro preview",
-    "astro": "astro"
+    "astro": "astro",
+    "translate": "node scripts/translate-content.mjs",
+    "translate:force": "node scripts/translate-content.mjs --force"
   },
   "dependencies": {
+    "@astrojs/check": "^0.9.9",
+    "@astrojs/sitemap": "^3.7.2",
     "@fontsource-variable/geist": "^5.2.6",
     "@fontsource-variable/geist-mono": "^5.2.6",
     "@fontsource/geist-sans": "^5.2.5",
@@ -16,7 +20,8 @@
     "astro": "^5.13.7",
     "sharp": "^0.34.3",
     "tailwindcss": "^4.1.13",
-    "tw-animate-css": "^1.3.8"
+    "tw-animate-css": "^1.3.8",
+    "typescript": "^6.0.3"
   },
   "devDependencies": {
     "@fontsource-variable/inter": "^5.2.6",

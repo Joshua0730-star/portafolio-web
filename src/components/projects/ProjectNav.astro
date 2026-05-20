@@ -1,0 +1,55 @@
+---
+import type { Project } from "../../lib/projects";
+import { canonicalSlug } from "../../lib/projects";
+import { useTranslations } from "../../i18n/ui";
+import { localePath, DEFAULT_LOCALE } from "../../i18n/config";
+import type { Locale } from "../../i18n/config";
+
+interface Props {
+  prev: Project | null;
+  next: Project | null;
+}
+const { prev, next } = Astro.props;
+const locale = (Astro.currentLocale ?? DEFAULT_LOCALE) as Locale;
+const t = useTranslations(locale);
+---
+
+<nav
+  aria-label="Pagination"
+  class="mt-16 grid gap-4 border-t border-border pt-8 md:grid-cols-2"
+>
+  {
+    prev ? (
+      <a
+        href={localePath(`/projects/${canonicalSlug(prev.slug)}`, locale)}
+        class="group flex flex-col gap-1 rounded-lg border border-border p-4 hover:border-primary/40 hover:bg-card transition-all"
+      >
+        <span class="text-xs uppercase tracking-wider text-muted-foreground">
+          {t("project.prevLabel")}
+        </span>
+        <span class="font-semibold group-hover:text-primary">
+          {prev.data.title}
+        </span>
+      </a>
+    ) : (
+      <span />
+    )
+  }
+  {
+    next ? (
+      <a
+        href={localePath(`/projects/${canonicalSlug(next.slug)}`, locale)}
+        class="group flex flex-col gap-1 rounded-lg border border-border p-4 text-right hover:border-primary/40 hover:bg-card transition-all md:items-end"
+      >
+        <span class="text-xs uppercase tracking-wider text-muted-foreground">
+          {t("project.nextLabel")}
+        </span>
+        <span class="font-semibold group-hover:text-primary">
+          {next.data.title}
+        </span>
+      </a>
+    ) : (
+      <span />
+    )
+  }
+</nav>

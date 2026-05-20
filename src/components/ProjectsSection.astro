@@ -1,126 +1,39 @@
 ---
-import { Image } from "astro:assets";
-import githubIcon from "../assets/icon-github.svg";
-import externalLinkIcon from "../assets/icon-visit.svg"; // Asegúrate de tener este icono
+import ProjectCard from "./projects/ProjectCard.astro";
+import { getFeaturedProjects } from "../lib/projects";
+import { useTranslations } from "../i18n/ui";
+import { localePath, DEFAULT_LOCALE } from "../i18n/config";
+import type { Locale } from "../i18n/config";
 
-// Usamos los datos nuevos que definiste para Astro
-const projects = [
-  {
-    title: "Code Jay",
-    description:
-      "Figma plugin that generates production-ready code in top technologies from any selection of elements.",
-    image: "/projects/code-jay-image.svg", // Astro buscará esta imagen en la carpeta `public`
-    technologies: [
-      "Node.js",
-      "TypeScript",
-      "Javascript",
-      "Astro",
-      "Express.js",
-      "Tailwind CSS",
-    ],
-    liveUrl: "https://www.figma.com/community/plugin/1493662629267995590",
-    githubUrl: "https://github.com/Joshua0730-star/Code-Jay-",
-  },
-  
-   {
-    title: "REST API",
-    description:
-      "A REST API built with best practices (MVC, DI, CRUD, validations) backed by an SQL database",
-    image: "/projects/MVC-image.png",
-    technologies: ["Node JS", "SQL", "MVC Architecture", "Validations"],
-    liveUrl: "https://rest-api-deploy-2ep9.onrender.com/movies",
-    githubUrl: "https://github.com/Joshua0730-star/nodejs-intermedio", 
-  },
-  {
-    title: "Video Summarizer",
-    description:
-      "An app that summarizes YouTube videos and transcribes them at rocket speed 🚀. Integrated with AI for better learning outputs.",
-    image: "/projects/resumen-videos.png",
-    technologies: ["Next JS", "Typescript", "Tailwind CSS", "React Hooks", "IA Agents"],
-    liveUrl: "https://resumen-videos.vercel.app/", // Dejamos '#' si no hay link de demo
-    githubUrl: "https://github.com/Joshua0730-star/videore", // Dejamos '#' si no hay link de código
-  },
-  {
-    title: "Netflix Landing",
-    description:
-      "Recreation of Netflix Colombia's website with its full structure and functionality.",
-    image: "/projects/landing-netflix-image.svg",
-    technologies: [
-      "Astro",
-      "Html",
-      "Css",
-      "Javascript",
-      "Figma",
-      "SQL",
-      "Tailwind CSS",
-    ],
-    liveUrl: "https://netflix-landing-page-dun-psi.vercel.app/",
-    githubUrl: "https://github.com/Joshua0730-star/Netflix-Landing-Page",
-  }
-];
+const locale = (Astro.currentLocale ?? DEFAULT_LOCALE) as Locale;
+const t = useTranslations(locale);
+const featured = await getFeaturedProjects(locale, 4);
 ---
 
-<section id="projects" class="py-16 px-4 bg-muted/30">
+<section id="projects" class="py-20 px-4 bg-muted/30">
   <div class="container mx-auto max-w-6xl">
-    <div class="text-center mb-12">
-      <h2 class="text-3xl md:text-4xl font-bold mb-4">Featured Projects</h2>
+    <header class="text-center mb-12">
+      <p class="text-sm font-mono text-primary mb-2">{t("home.featuredKicker")}</p>
+      <h2 class="text-3xl md:text-4xl font-bold mb-3">
+        {t("home.featuredTitle")}
+      </h2>
       <p class="text-lg text-muted-foreground max-w-2xl mx-auto">
-        A selection of my latest work showcasing my full-stack development and interface design skills.
+        {t("home.featuredSubtitle")}
       </p>
+    </header>
+
+    <div class="grid gap-6 sm:grid-cols-2 max-w-4xl mx-auto">
+      {featured.map((p, i) => <ProjectCard project={p} priority={i < 2} />)}
     </div>
 
-    <div class="grid md:grid-cols-2  gap-6 lg:gap-4 mx-auto max-w-3xl">
-      {projects.map((project) => (
-        <div class="group bg-card rounded-lg overflow-hidden hover:shadow-lg transition-all duration-300 border  border-border shadow-none flex flex-col max-w-md mx-auto">
-          <div class="aspect-video overflow-hidden">
-            <!-- Las imágenes de proyectos se cargan desde la carpeta `public` -->
-            <img
-              src={project.image}
-              alt={`Project image for ${project.title}`}
-              class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-300"
-              loading="lazy"
-              width="550"
-              height="310"
-            />
-          </div>
-          <div class="p-6 flex flex-col flex-grow">
-            <h3 class="text-xl font-semibold text-card-foreground">{project.title}</h3>
-            <p class="text-sm text-muted-foreground mt-1 mb-4 flex-grow">{project.description}</p>
-            <div class="flex flex-wrap gap-2 mb-4">
-              {project.technologies.map((tech) => (
-                <span class="px-2 py-1 text-xs bg-primary/10 text-primary rounded-md">
-                  {tech}
-                </span>
-              ))}
-            </div>
-            <div class="flex gap-2 mt-auto">
-              <a
-                href={project.liveUrl}
-                target="_blank"
-                rel="noopener noreferrer"
-                class="inline-flex items-center justify-center whitespace-nowrap text-sm font-medium  ring ring-border ring-offset-background transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 disabled:pointer-events-none disabled:opacity-50 border border-input bg-background  hover:text-accent-foreground h-9 px-3 rounded-md flex-1 hover:bg-accent/30 hover:ring-accent/30"
-                aria-disabled={project.liveUrl === '#'}
-                class:list={[project.liveUrl === '#' && 'pointer-events-none opacity-50']}
-                
-              >
-                <Image src={externalLinkIcon} alt="Demo" class="mr-2 h-3.5 w-3.5" width="14" height="14" />
-                Demo
-              </a>
-              <a
-                href={project.githubUrl}
-                target="_blank"
-                rel="noopener noreferrer"
-                class="inline-flex items-center justify-center whitespace-nowrap text-sm font-medium ring-offset-background transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 disabled:pointer-events-none disabled:opacity-50 border border-input bg-background hover:bg-accent/30 hover:text-accent-foreground h-9 px-3 rounded-md flex-1 ring ring-border hover:ring-accent/30"
-                aria-disabled={project.githubUrl === '#'}
-                class:list={[project.githubUrl === '#' && 'pointer-events-none opacity-50']}
-              >
-                <Image src={githubIcon} alt="Project source code" class="mr-2 h-3.5 w-3.5" width="14" height="14" />
-                Code
-              </a>
-            </div>
-          </div>
-        </div>
-      ))}
+    <div class="text-center mt-12">
+      <a
+        href={localePath("/projects", locale)}
+        class="inline-flex items-center gap-2 rounded-md border border-border bg-background px-5 py-2.5 text-sm font-medium hover:bg-accent/30 hover:border-primary/40 transition-all"
+      >
+        {t("common.viewAll")}
+        <span aria-hidden="true">→</span>
+      </a>
     </div>
   </div>
 </section>

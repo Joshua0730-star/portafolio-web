@@ -1,28 +1,24 @@
 ---
-// importacion de iconos
+import { useTranslations } from "../i18n/ui";
+import { DEFAULT_LOCALE } from "../i18n/config";
+import type { Locale } from "../i18n/config";
 
-// Informacion de contacto
+const locale = (Astro.currentLocale ?? DEFAULT_LOCALE) as Locale;
+const t = useTranslations(locale);
 
-type schemaContact = {
-  email: string;
-  phone: string;
-  location: string;
-};
-const contactInfo: schemaContact = {
+const contactInfo = {
   email: "josuemarchena0730@gmail.com",
   phone: "+57 304 449 0607",
-  location: "Colombia (Remote work)",
+  location: t("contact.locationValue"),
 };
 ---
 
 <section id="contact" class="py-16 px-4 bg-background mx-auto">
   <div class="container mx-auto max-w-4xl">
     <div class="text-center mb-12">
-      <h2 class="text-3xl md:text-4xl font-bold mb-4">Let's Work Together!</h2>
+      <h2 class="text-3xl md:text-4xl font-bold mb-4">{t("contact.title")}</h2>
       <p class="text-lg text-muted-foreground max-w-2xl mx-auto">
-        I would love to be part of your team. I'm ready, motivated, and
-        passionate about contributing to new goals and helping your projects
-        reach the next level.
+        {t("contact.subtitle")}
       </p>
     </div>
 
@@ -33,9 +29,9 @@ const contactInfo: schemaContact = {
       <div class="space-y-6 mx-auto">
         <div class="bg-card border-border border rounded-lg mx-auto">
           <div class="p-6">
-            <h3 class="text-xl font-semibold">Contact Information</h3>
+            <h3 class="text-xl font-semibold">{t("contact.infoTitle")}</h3>
             <p class="text-sm text-muted-foreground">
-              Feel free to reach out through any of these channels.
+              {t("contact.infoSubtitle")}
             </p>
           </div>
           <div class="p-6 pt-0 space-y-4">
@@ -58,7 +54,7 @@ const contactInfo: schemaContact = {
                 >
               </div>
               <div>
-                <p class="font-medium">Email</p>
+                <p class="font-medium">{t("contact.email")}</p>
                 <a
                   href={`mailto:${contactInfo.email}`}
                   class="text-sm text-muted-foreground hover:text-primary transition-colors"
@@ -86,7 +82,7 @@ const contactInfo: schemaContact = {
                 >
               </div>
               <div>
-                <p class="font-medium">Phone</p>
+                <p class="font-medium">{t("contact.phone")}</p>
                 <a
                   href={`tel:${contactInfo.phone.replace(/\s/g, "")}`}
                   class="text-sm text-muted-foreground hover:text-primary transition-colors"
@@ -112,7 +108,7 @@ const contactInfo: schemaContact = {
                 >
               </div>
               <div>
-                <p class="font-medium">Location</p>
+                <p class="font-medium">{t("contact.location")}</p>
                 <p class="text-sm text-muted-foreground">
                   {contactInfo.location}
                 </p>

@@ -1,3 +1,12 @@
+---
+import { useTranslations } from "../i18n/ui";
+import { DEFAULT_LOCALE } from "../i18n/config";
+import type { Locale } from "../i18n/config";
+
+const locale = (Astro.currentLocale ?? DEFAULT_LOCALE) as Locale;
+const t = useTranslations(locale);
+---
+
 <a
   href="/cv/JayCV-lasted-0.1.pdf"
   download
@@ -18,5 +27,5 @@
       points="7 10 12 15 17 10"></polyline><line x1="12" x2="12" y1="15" y2="3"
     ></line></svg
   >
-  Download CV
+  {t("hero.cv")}
 </a>

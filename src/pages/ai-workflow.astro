@@ -1,0 +1,48 @@
+---
+import Layout from "../layouts/Layout.astro";
+import Header from "../components/Header.astro";
+import AiWorkflowContent from "../components/ai/AiWorkflowContent.astro";
+import { useTranslations } from "../i18n/ui";
+import { SITE } from "../lib/site";
+
+const locale = "es" as const;
+const t = useTranslations(locale);
+
+const aiArticle = {
+  "@context": "https://schema.org",
+  "@type": "Article",
+  headline: t("ai.title"),
+  description:
+    "Filosofía de trabajo Human-In-The-Loop con IA: arquitectura de software, control de costos, elección de modelos por tarea, protocolos (MCP), modelaje de datos y disciplina de spec-driven development.",
+  inLanguage: "es",
+  author: {
+    "@type": "Person",
+    name: SITE.author.name,
+    url: SITE.author.url,
+  },
+  mainEntityOfPage: new URL("/ai-workflow", SITE.url).toString(),
+  about: [
+    "Human-In-The-Loop AI",
+    "Software Architecture",
+    "AI Engineering",
+    "Model Context Protocol",
+    "Spec-Driven Development",
+  ],
+  keywords:
+    "human in the loop, ai workflow, software architect, model context protocol, spec driven development, ai agents",
+};
+---
+
+<Layout
+  title={t("ai.title")}
+  description="Filosofía de trabajo Human-In-The-Loop con IA: arquitectura de software, control de costos, elección de modelos por tarea, protocolos (MCP), modelaje de datos y disciplina de spec-driven development."
+  type="article"
+  lang="es"
+  keywords={["human in the loop", "ai workflow", "software architect", "MCP", "SDD", "ai agents", "ai costs"]}
+  jsonLd={aiArticle}
+>
+  <Header />
+  <main id="main" tabindex="-1">
+    <AiWorkflowContent lang="es" />
+  </main>
+</Layout>

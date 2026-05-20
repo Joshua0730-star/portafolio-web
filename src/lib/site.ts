@@ -1,0 +1,42 @@
+export const SITE = {
+  name: "Josué Marchena Carvajal — JayDev",
+  shortName: "JayDev",
+  url: "https://portafolio-web-hazel-five.vercel.app/",
+  description:
+    "Portafolio profesional de Josué Marchena Carvajal (JayDev). Desarrollador full-stack y arquitecto de software con foco en sistemas escalables, arquitectura orientada a eventos y flujos de trabajo Human-In-The-Loop con IA.",
+  locale: "es-CO",
+  author: {
+    name: "Josué Marchena Carvajal",
+    alternateName: "JayDev",
+    jobTitle: "Software Architect & Full-Stack Developer",
+    url: "https://portafolio-web-hazel-five.vercel.app/",
+    sameAs: [
+      "https://github.com/Joshua0730-star",
+      "https://www.linkedin.com/in/josue-marchena-54a165303",
+      "https://www.instagram.com/josmar.c07",
+    ],
+    knowsAbout: [
+      "Software Architecture",
+      "Full-Stack Development",
+      "Event-Driven Systems",
+      "TypeScript",
+      "Node.js",
+      "React",
+      "Astro",
+      "AI Engineering",
+      "Human-In-The-Loop AI",
+      "REST APIs",
+      "SQL Databases",
+      "Clean Architecture",
+      "Test-Driven Development",
+      "Model Context Protocol (MCP)",
+    ],
+  },
+  nav: [
+    { href: "/#experience", label: "Experience" },
+    { href: "/projects", label: "Projects" },
+    { href: "/#skills", label: "Skills" },
+    { href: "/ai-workflow", label: "AI Workflow" },
+    { href: "/#contact", label: "Contact" },
+  ],
+} as const;
