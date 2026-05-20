@@ -7,16 +7,26 @@ AI translation of project markdown files (`src/content/projects/*.md`) from Span
 ### Setup
 
 1. Get a free API key at https://aistudio.google.com/apikey
-2. Set the env var:
+2. Copy `.env.example` to `.env` at the project root and fill in `GEMINI_API_KEY`:
+
+```bash
+cp .env.example .env
+# then edit .env and paste your key
+```
+
+The `pnpm translate` scripts load `.env` automatically via Node's native
+`--env-file-if-exists` flag — no `dotenv` dependency required.
+
+You can still override on a per-invocation basis from your shell:
 
 ```powershell
 # PowerShell
-$env:GEMINI_API_KEY = "your-key-here"
+$env:GEMINI_API_KEY = "your-key-here"; pnpm translate
 ```
 
 ```bash
 # bash / zsh
-export GEMINI_API_KEY=your-key-here
+GEMINI_API_KEY=your-key-here pnpm translate
 ```
 
 ### Usage

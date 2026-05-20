@@ -7,8 +7,8 @@
     "build": "astro build",
     "preview": "astro preview",
     "astro": "astro",
-    "translate": "node scripts/translate-content.mjs",
-    "translate:force": "node scripts/translate-content.mjs --force"
+    "translate": "node --env-file-if-exists=.env scripts/translate-content.mjs",
+    "translate:force": "node --env-file-if-exists=.env scripts/translate-content.mjs --force"
   },
   "dependencies": {
     "@astrojs/check": "^0.9.9",
