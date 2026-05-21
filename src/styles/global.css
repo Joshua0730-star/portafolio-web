@@ -73,7 +73,10 @@
     --sidebar-ring: rgba(0, 81, 189, 0.5);
     /* blue with opacity */
 
-    --basic-tag: rgb(34, 43, 89, .63);
+    /* Skill-level "Basic" badge — light mode.
+       Soft blue surface with deep blue text for AAA contrast on white cards. */
+    --basic-tag: oklch(0.92 0.04 250);
+    --basic-tag-foreground: oklch(0.32 0.12 250);
 }
 
 .dark {
@@ -168,7 +171,8 @@
     --color-sidebar-accent-foreground: var(--sidebar-accent-foreground);
     --color-sidebar-border: var(--sidebar-border);
     --color-sidebar-ring: var(--sidebar-ring);
-    --color-basic-tag: var(--basic-tag)
+    --color-basic-tag: var(--basic-tag);
+    --color-basic-tag-foreground: var(--basic-tag-foreground);
 }
 
 @layer base {

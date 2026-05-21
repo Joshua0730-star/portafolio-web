@@ -93,17 +93,53 @@ const personJsonLd = {
     }
     <link rel="alternate" hreflang="x-default" href={xDefaultHref} />
 
-    {/* Anti-flash dark-mode init: must run BEFORE the body paints */}
+    {
+      /*
+      Theme persistence — single source of truth.
+
+      Two listeners cover every entry point:
+
+      1. The IIFE runs synchronously on every initial document parse (incl. the
+         first page load and any full reload). It applies the stored / system
+         theme BEFORE the body paints to avoid a light-mode flash.
+
+      2. `astro:before-swap` runs during client-side view transitions. The
+         <ClientRouter /> replaces the <html> element on navigation, which
+         strips our `.dark` class from the incoming document; we re-apply it on
+         `event.newDocument` so the swap arrives already themed.
+
+      The inline `<script>` (no `type="module"`) blocks rendering until it
+      finishes — that's exactly what we want for anti-flash.
+    */
+    }
     <script is:inline>
       (function () {
-        try {
-          const stored = localStorage.getItem("theme");
-          const prefersDark = window.matchMedia(
-            "(prefers-color-scheme: dark)",
-          ).matches;
-          const theme = stored ?? (prefersDark ? "dark" : "light");
-          if (theme === "dark") document.documentElement.classList.add("dark");
-        } catch (_) {}
+        const STORAGE_KEY = "theme";
+
+        function resolveTheme() {
+          try {
+            const stored = localStorage.getItem(STORAGE_KEY);
+            if (stored === "dark" || stored === "light") return stored;
+          } catch (_) {
+            /* localStorage may be blocked; fall through to system preference */
+          }
+          return window.matchMedia("(prefers-color-scheme: dark)").matches
+            ? "dark"
+            : "light";
+        }
+
+        function applyTheme(root, theme) {
+          if (theme === "dark") root.classList.add("dark");
+          else root.classList.remove("dark");
+        }
+
+        // 1. Initial paint
+        applyTheme(document.documentElement, resolveTheme());
+
+        // 2. Re-apply across <ClientRouter /> navigations.
+        document.addEventListener("astro:before-swap", (event) => {
+          applyTheme(event.newDocument.documentElement, resolveTheme());
+        });
       })();
     </script>
 

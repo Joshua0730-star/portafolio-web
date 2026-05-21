@@ -6,6 +6,9 @@ import {
   getAdjacentProjects,
   canonicalSlug,
 } from "../../../lib/projects";
+import { useTranslations } from "../../../i18n/ui";
+
+const t = useTranslations("en");
 
 export async function getStaticPaths() {
   // Build a page for every canonical slug; the localizer in lib/projects picks
@@ -24,17 +27,35 @@ const { prev, next } = await getAdjacentProjects(project.slug, "en");
 ---
 
 <ProjectLayout project={project} prev={prev} next={next}>
-  {isFallback && (
-    <aside
-      role="note"
-      class="not-prose mb-8 rounded-lg border border-amber-500/30 bg-amber-500/10 px-4 py-3 text-sm text-amber-700 dark:text-amber-300"
-    >
-      The English translation of this project is not available yet. Showing the
-      Spanish version. Run <code>pnpm translate</code> to generate translations.
-    </aside>
-  )}
+  {
+    isFallback && (
+      <aside
+        role="note"
+        class="not-prose mb-8 flex items-start gap-3 rounded-lg border border-primary/20 bg-primary/5 px-4 py-3 text-sm text-foreground/80"
+      >
+        <svg
+          aria-hidden="true"
+          xmlns="http://www.w3.org/2000/svg"
+          viewBox="0 0 24 24"
+          fill="none"
+          stroke="currentColor"
+          stroke-width="2"
+          stroke-linecap="round"
+          stroke-linejoin="round"
+          class="mt-0.5 h-4 w-4 shrink-0 text-primary"
+        >
+          <circle cx="12" cy="12" r="10" />
+          <path d="M12 16v-4" />
+          <path d="M12 8h.01" />
+        </svg>
+        <span>{t("fallback.translationPending")}</span>
+      </aside>
+    )
+  }
   <Content />
-  {project.data.gallery && project.data.gallery.length > 2 && (
-    <ProjectGallery images={project.data.gallery} startIndex={2} />
-  )}
+  {
+    project.data.gallery && project.data.gallery.length > 2 && (
+      <ProjectGallery images={project.data.gallery} startIndex={2} />
+    )
+  }
 </ProjectLayout>

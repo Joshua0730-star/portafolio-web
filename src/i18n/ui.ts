@@ -100,6 +100,8 @@ export const ui = {
     "contact.phone": "Teléfono",
     "contact.location": "Ubicación",
     "contact.locationValue": "Colombia (trabajo remoto)",
+    "fallback.translationPending":
+      "La traducción de esta sección aún no está disponible. ¡Te avisaremos en cuanto esté lista!",
   },
   en: {
     "nav.experience": "Experience",
@@ -200,6 +202,8 @@ export const ui = {
     "contact.phone": "Phone",
     "contact.location": "Location",
     "contact.locationValue": "Colombia (remote work)",
+    "fallback.translationPending":
+      "The translation of this section isn't available yet. We'll let you know as soon as it is!",
   },
 } as const satisfies Record<Locale, Record<string, string>>;
 

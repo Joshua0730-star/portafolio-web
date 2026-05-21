@@ -44,13 +44,14 @@ const levelLabel = (level: string): string =>
             </h3>
             <span
               class:list={[
-                "text-xs text-primary-foreground font-medium me-2 px-2.5 py-0.5 rounded", // estas se aplicaran si o si, son las por defecto
+                "text-xs font-medium me-2 px-2.5 py-0.5 rounded",
                 {
-                  // estas clases seran dinamicas
-                  "bg-primary ": skill.level === "Advanced", // <-- se aplica la key siempre y cuando el valor sea true
+                  "bg-primary text-primary-foreground":
+                    skill.level === "Advanced",
                   "bg-secondary text-secondary-foreground":
-                    skill.level == "Intermediate",
-                  "bg-basic-tag": skill.level === "Basic",
+                    skill.level === "Intermediate",
+                  "bg-basic-tag text-basic-tag-foreground":
+                    skill.level === "Basic",
                 },
               ]}
             >
@@ -94,11 +95,14 @@ const levelLabel = (level: string): string =>
                         </h3>
                         <span
                           class:list={[
-                            "text-xs text-primary-foreground font-medium me-2 px-2.5 py-0.5 rounded",
+                            "text-xs font-medium me-2 px-2.5 py-0.5 rounded",
                             {
-                              "bg-primary": skill.level === "Advanced",
-                              "bg-secondary ": skill.level === "Intermediate",
-                              "bg-basic-tag": skill.level === "Basic",
+                              "bg-primary text-primary-foreground":
+                                skill.level === "Advanced",
+                              "bg-secondary text-secondary-foreground":
+                                skill.level === "Intermediate",
+                              "bg-basic-tag text-basic-tag-foreground":
+                                skill.level === "Basic",
                             },
                           ]}
                         >
